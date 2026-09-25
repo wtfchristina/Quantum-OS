@@ -1,0 +1,45 @@
+name: Q-Core Post-Quantum Compliance Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  pqc-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Q-Core Suite
+        run: |
+          pip install numpy reportlab
+          pip install -e .
+
+      - name: Execute Cryptographic Bill of Materials (CBOM) Scan
+        run: |
+          qcore scan --path . --format md
+          qcore scan --path . --format html
+          qcore scan --path . --format pdf
+
+      - name: Upload Audit Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pqc-compliance-report
+          path: |
+            cbom_report.md
+            cbom_report.html
+            cbom_report.pdf
+
+      - name: Verify Quantum Readiness Threshold
+        run: |
+          # Parse readiness score from JSON
+          qcore scan --path . --format json
+          python3 -c "import json; data=json.load(open('cbom_report.json')); score=data['post_quantum_readiness_score']; exit(0 if score >= 85 else 1)"
