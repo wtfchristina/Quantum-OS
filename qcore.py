@@ -57,7 +57,7 @@ class CryptoASTVisitor(ast.NodeVisitor):
                     "nist_compliance": details['standard']
                 })
 
-def run_cbom_scan(target_path, output_format='json'):
+def run_cbom_scan(target_path, output_format='pdf'):
     all_findings = []
     scanned_files = 0
     for root, _, files in os.walk(target_path):
@@ -84,7 +84,6 @@ def run_cbom_scan(target_path, output_format='json'):
         "inventory": all_findings
     }
 
-    
     if output_format == 'json':
         out_file = "cbom_report.json"
         with open(out_file, 'w') as f:
@@ -154,7 +153,6 @@ th {{ background: #0f172a; color: #94a3b8; font-size: 13px; text-transform: uppe
             styles = getSampleStyleSheet()
             title_style = ParagraphStyle('Title', parent=styles['Heading1'], fontSize=20, leading=24, textColor=colors.HexColor('#0f172a'))
             subtitle_style = ParagraphStyle('Sub', parent=styles['Normal'], fontSize=10, textColor=colors.HexColor('#64748b'))
-            normal_style = ParagraphStyle('Normal', parent=styles['Normal'], fontSize=9, textColor=colors.HexColor('#334155'))
 
             elements = []
             elements.append(Paragraph("<b>Q-CORE ENTERPRISE CRYPTOGRAPHIC AUDIT</b>", title_style))
@@ -209,7 +207,7 @@ th {{ background: #0f172a; color: #94a3b8; font-size: 13px; text-transform: uppe
         except Exception as e:
             print(f"[-] PDF generation skipped: {e}")
 
-print(f"\n[+] Scan Complete: {scanned_files} files inspected.")
+    print(f"\n[+] Scan Complete: {scanned_files} files inspected.")
     print(f"[+] Post-Quantum Readiness Score: {score}/100")
     print(f"[+] Vulnerable Primitives: {len(all_findings)}")
 
@@ -219,10 +217,7 @@ print(f"\n[+] Scan Complete: {scanned_files} files inspected.")
 # =====================================================================
 def run_e91_sim(num_pairs=4000, eve=False):
     print(f"\nInitializing E91 Protocol ({num_pairs} Entangled Pairs, Eve={eve})...")
-    # Exact standard E91 measurement angles
-    # Alice: a1 = 0, a2 = pi/4, a3 = pi/8
     alice_angles = [0.0, np.pi / 4, np.pi / 8]
-    # Bob: b1 = pi/8, b2 = 3*pi/8, b3 = 0.0 (used for matching key with Alice a1)
     bob_angles = [np.pi / 8, 3 * np.pi / 8, 0.0]
 
     alice_choices = np.random.randint(0, 3, num_pairs)
@@ -235,13 +230,11 @@ def run_e91_sim(num_pairs=4000, eve=False):
 
     alice_res, bob_res = [], []
     for i in range(num_pairs):
-        # Singlet Bell state (|01> - |10>)/sqrt(2)
         state = np.zeros(4, dtype=complex)
         state[1] = 1.0 / np.sqrt(2)
         state[2] = -1.0 / np.sqrt(2)
 
         if eve:
-            # Intercept-resend collapses entanglement to classical mixture
             p0 = np.kron(np.eye(2), np.array([[1, 0], [0, 0]]))
             p1 = np.kron(np.eye(2), np.array([[0, 0], [0, 1]]))
             prob0 = np.real(np.conj(state) @ p0 @ state)
@@ -273,16 +266,12 @@ def run_e91_sim(num_pairs=4000, eve=False):
         m = (alice_choices == a) & (bob_choices == b)
         return np.mean(alice_res[m] * bob_res[m]) if np.sum(m) > 0 else 0.0
 
-    # CHSH parameter S using (a1, a2) and (b1, b2)
-    # With a1=0, a2=pi/4, b1=pi/8, b2=3*pi/8:
-    # S = -corr(a1, b1) + corr(a1, b2) - corr(a2, b1) - corr(a2, b2)
     e11 = corr(0, 0)
     e12 = corr(0, 1)
     e21 = corr(1, 0)
     e22 = corr(1, 1)
     s = np.abs(-e11 + e12 - e21 - e22)
 
-    # Key generation rounds: Alice a1 (0.0) and Bob b3 (0.0)
     key_mask = (alice_choices == 0) & (bob_choices == 2)
     raw_alice = np.where(alice_res[key_mask] == 1, 1, 0)
     raw_bob = np.where(bob_res[key_mask] == -1, 1, 0)
@@ -297,9 +286,10 @@ def run_e91_sim(num_pairs=4000, eve=False):
 
 
 # =====================================================================
+# 3. HEAVY-HEX TOPOLOGY TRANSPILER & ROUTING BENCHMARK
+# =====================================================================
 def run_transpile_benchmark(source_q=0, target_q=4):
     print(f"\nRouting 2-Qubit Interaction on IBM Heavy-Hex (q{source_q} <-> q{target_q})...")
-    # Heavy-hex adjacency list
     graph = {
         0: [1],
         1: [0, 2, 3],
@@ -307,7 +297,6 @@ def run_transpile_benchmark(source_q=0, target_q=4):
         3: [1, 4],
         4: [3]
     }
-    # BFS Shortest Path
     queue = [[source_q]]
     visited = set([source_q])
     path = []
@@ -340,7 +329,7 @@ def main():
 
     # Cryptography
     e91_p = subparsers.add_parser('e91', help="Simulate E91 Entanglement-based QKD channel")
-    e91_p.add_argument('--pairs', type=int, default=3000, help="Number of Bell singlet pairs")
+    e91_p.add_argument('--pairs', type=int, default=4000, help="Number of Bell singlet pairs")
     e91_p.add_argument('--eve', action='store_true', help="Inject eavesdropper intercept-resend attack")
 
     # Transpiler
