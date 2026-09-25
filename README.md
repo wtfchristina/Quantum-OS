@@ -27,5 +27,15 @@ A self-contained quantum computing simulator, algorithm laboratory, and hardware
    ```bash
    git clone [https://github.com/wtfchristina/Quantum-OS.git](https://github.com/wtfchristina/Quantum-OS.git)
    cd Quantum-OS
+   ```
 
-E0F
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Launch the interactive workbench:
+   ```bash
+   python3 app.py
+   ```
+   *(Or double-click `QuantumOS.command` on macOS)*
