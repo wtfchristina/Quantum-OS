@@ -1,0 +1,26 @@
+name: Quantum-OS Integration CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  smoke-test:
+    runs-on: macos-14
+    steps:
+      - name: Checkout Monorepo
+        uses: actions/checkout@v4
+
+      - name: Install System Dependencies
+        run: |
+          brew install cmake openssl@3
+
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install cryptography
+
+      - name: Execute Full Integration Smoke Suite
+        run: |
+          make verify
