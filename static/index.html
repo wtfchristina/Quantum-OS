@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PQC Sentinel - Post-Quantum Compliance Scanner</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #e0e0e0;
+        }
+
+        .input-group {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px 0 0 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #5a5a5a;
+        }
+
+        button {
+            padding: 15px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #333;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        .result-card {
+            display: none;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            margin-top: 20px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+            width: calc(100% - 30px);
+        }
+
+        .badge.secure {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .badge.vulnerable {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .badge.error {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
+
+        .detail {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #aaa;
+            font-weight: bold;
+        }
+
+        .detail-value {
+            color: #eee;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 20px;
+            color: #aaa;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #2a2a2a;
+            color: #aaa;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background: #007bff;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        textarea:focus {
+            border-color: #5a5a5a;
+        }
+        .file-upload {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .file-upload input {
+            color: #fff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+        }
+        th {
+            background-color: #2a2a2a;
+        }
+        .badge-small {
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-small.secure {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+        .badge-small.vulnerable {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+        .badge-small.error {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PQC Sentinel</h1>
+        <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">TLS 1.3 Post-Quantum Compliance Scanner</p>
+
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('single')">Single Scan</button>
+            <button class="tab" onclick="switchTab('batch')">Batch Scan</button>
+            <button class="tab" onclick="switchTab('monitor')">Continuous Monitoring & Alerts</button>
+        </div>
+
+        <div id="single-tab" class="tab-content active">
+            <div class="input-group">
+                <input type="text" id="domain" placeholder="Enter domain (e.g., cloudflare.com)" />
+                <button id="scanBtn" onclick="scanDomain()">Scan for PQC Compliance</button>
+            </div>
+            <div id="loading">Scanning...</div>
+
+            <div class="result-card" id="resultCard">
+                <div id="badge" class="badge"></div>
+
+                <div class="detail">
+                    <span class="detail-label">Domain:</span>
+                    <span class="detail-value" id="resDomain"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Port:</span>
+                    <span class="detail-value" id="resPort"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Group:</span>
+                    <span class="detail-value" id="resGroup"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Posture:</span>
+                    <span class="detail-value" id="resPosture"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Timestamp:</span>
+                    <span class="detail-value" id="resTimestamp"></span>
+                </div>
+
+                <div class="detail" style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+                    <strong>Certificate Signature:</strong>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Algorithm:</span>
+                    <span class="detail-value" id="resSigAlg"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Key Type:</span>
+                    <span class="detail-value" id="resKeyType"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Key Size:</span>
+                    <span class="detail-value" id="resKeySize"></span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label">Posture:</span>
+                    <span class="detail-value" id="resSigPosture"></span>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="downloadCbomBtn" onclick="downloadCbom()" style="flex: 1; background-color: #28a745;">Download CBOM JSON</button>
+                    <button id="downloadPdfBtn" onclick="downloadPdf()" style="flex: 1; background-color: #17a2b8;">Download Executive PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="batch-tab" class="tab-content">
+            <textarea id="batch-domains" placeholder="Enter domains (one per line, e.g., cloudflare.com
+google.com)"></textarea>
+
+            <div class="file-upload">
+                <label for="batch-file" style="color: #aaa; margin-right: 10px;">Or upload CSV/TXT:</label>
+                <input type="file" id="batch-file" accept=".csv, .txt">
+            </div>
+
+            <button id="batchScanBtn" onclick="scanBatch()" style="width: 100%; margin-top: 10px;">Run Batch Scan</button>
+            <div id="batch-loading" style="display: none; margin-top: 20px; color: #aaa;">Scanning Batch...</div>
+
+            <div class="result-card" id="batchResultCard" style="max-width: 100%; overflow-x: auto;">
+                <table id="batch-results-table">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Status</th>
+                            <th>Key Exchange Group</th>
+                            <th>Signature Algorithm</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px;">
+                    <button id="downloadBatchCbomBtn" onclick="downloadBatchCbom()" style="width: 100%; background-color: #28a745;">Export Batch CBOM (JSON)</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="monitor-tab" class="tab-content">
+            <h2>Continuous Monitoring & Alerts</h2>
+            <p style="color: #bbb; margin-bottom: 20px;">Monitor domains for posture degradation (e.g., SECURE to VULNERABLE).</p>
+
+            <div id="scheduler-banner" style="background-color: #2b2b2b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #f39c12; display: none;">
+                <h3 style="margin-top: 0; color: #f39c12; font-size: 16px;">Scheduler Status</h3>
+                <p id="scheduler-text" style="margin-bottom: 0; color: #ddd;"></p>
+            </div>
+
+            <div class="search-container" style="flex-wrap: wrap;">
+                <input type="text" id="monitorDomain" placeholder="Enter domain (e.g., cloudflare.com)" style="flex: 1; margin-right: 10px; margin-bottom: 10px; min-width: 200px; padding: 12px; border-radius: 6px; border: 1px solid #444; background-color: #2b2b2b; color: #fff;">
+                <input type="text" id="monitorWebhook" placeholder="Optional Webhook URL (Slack/Discord)" style="flex: 2; margin-right: 10px; margin-bottom: 10px; min-width: 200px; padding: 12px; border-radius: 6px; border: 1px solid #444; background-color: #2b2b2b; color: #fff;">
+                <button onclick="addMonitoredTarget()" style="margin-bottom: 10px;">Add to Watchlist</button>
+            </div>
+
+            <div style="margin-bottom: 20px; text-align: left; margin-top: 20px;">
+                <button onclick="runAuditCheck()" id="runCheckBtn" style="background-color: #f39c12;">Run Audit Now</button>
+                <span id="monitorLoading" style="display: none; margin-left: 10px; color: #f39c12;">Running checks...</span>
+            </div>
+
+            <div class="table-container" style="overflow-x: auto;">
+                <table id="monitorTable" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Domain</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Current Posture</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Signature Alg</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Webhook</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Last Checked</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #444;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monitorTbody">
+                        <!-- Monitoring results injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <script>
+
+        let currentBatchResults = [];
+
+        async function fetchSchedulerStatus() {
+            try {
+                const response = await fetch('/api/monitor/scheduler-status');
+                if (!response.ok) return;
+                const data = await response.json();
+
+                const banner = document.getElementById('scheduler-banner');
+                const text = document.getElementById('scheduler-text');
+
+                banner.style.display = 'block';
+
+                let statusText = `Automated background checks are <strong>${data.scheduler_running ? 'ACTIVE' : 'INACTIVE'}</strong>. `;
+                statusText += `Interval: ${data.interval_hours} hour(s). `;
+                statusText += `Monitored domains: ${data.total_monitored_domains}.`;
+
+                if (data.scheduler_running && data.next_run_time) {
+                    const nextRun = new Date(data.next_run_time).toLocaleString();
+                    statusText += `<br>Next scheduled audit: <strong>${nextRun}</strong>.`;
+                }
+
+                text.innerHTML = statusText;
+
+            } catch (error) {
+                console.error('Error fetching scheduler status:', error);
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'single') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('single-tab').classList.add('active');
+            } else if (tab === 'batch') {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('batch-tab').classList.add('active');
+            } else if (tab === 'monitor') {
+                document.querySelectorAll('.tab')[2].classList.add('active');
+                document.getElementById('monitor-tab').classList.add('active');
+                fetchTargets();
+                fetchSchedulerStatus();
+            }
+        }
+
+        async function fetchTargets() {
+            try {
+                const response = await fetch('/api/monitor/targets');
+                if (!response.ok) throw new Error('Failed to fetch targets');
+                const targets = await response.json();
+
+                const tbody = document.getElementById('monitorTbody');
+                tbody.innerHTML = '';
+
+                if (targets.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 10px;">No monitored domains yet.</td></tr>';
+                    return;
+                }
+
+                targets.forEach(t => {
+                    const tr = document.createElement('tr');
+
+                    const tdDomain = document.createElement('td');
+                    tdDomain.style.padding = '10px';
+                    tdDomain.style.borderBottom = '1px solid #333';
+                    tdDomain.textContent = t.domain;
+
+                    const tdPosture = document.createElement('td');
+                    tdPosture.style.padding = '10px';
+                    tdPosture.style.borderBottom = '1px solid #333';
+                    const spanStatus = document.createElement('span');
+                    spanStatus.classList.add('badge-small');
+                    if (t.last_status === 'SECURE') {
+                        spanStatus.textContent = 'SECURE';
+                        spanStatus.classList.add('secure');
+                    } else if (t.last_status === 'VULNERABLE') {
+                        spanStatus.textContent = 'VULNERABLE';
+                        spanStatus.classList.add('vulnerable');
+                    } else {
+                        spanStatus.textContent = t.last_status || 'UNKNOWN';
+                        spanStatus.classList.add('error');
+                    }
+                    tdPosture.appendChild(spanStatus);
+
+                    const tdSigAlg = document.createElement('td');
+                    tdSigAlg.style.padding = '10px';
+                    tdSigAlg.style.borderBottom = '1px solid #333';
+                    tdSigAlg.textContent = t.last_signature_algorithm || 'N/A';
+
+                    const tdWebhook = document.createElement('td');
+                    tdWebhook.style.padding = '10px';
+                    tdWebhook.style.borderBottom = '1px solid #333';
+                    tdWebhook.textContent = t.webhook_url ? 'Yes' : 'No';
+
+                    const tdLastChecked = document.createElement('td');
+                    tdLastChecked.style.padding = '10px';
+                    tdLastChecked.style.borderBottom = '1px solid #333';
+                    tdLastChecked.textContent = t.last_scanned_at ? new Date(t.last_scanned_at + 'Z').toLocaleString() : 'Never';
+
+                    const tdActions = document.createElement('td');
+                    tdActions.style.padding = '10px';
+                    tdActions.style.borderBottom = '1px solid #333';
+                    const delBtn = document.createElement('button');
+                    delBtn.textContent = 'Remove';
+                    delBtn.style.padding = '5px 10px';
+                    delBtn.style.backgroundColor = '#e74c3c';
+                    delBtn.style.fontSize = '12px';
+                    delBtn.onclick = () => deleteTarget(t.id);
+                    tdActions.appendChild(delBtn);
+
+                    tr.appendChild(tdDomain);
+                    tr.appendChild(tdPosture);
+                    tr.appendChild(tdSigAlg);
+                    tr.appendChild(tdWebhook);
+                    tr.appendChild(tdLastChecked);
+                    tr.appendChild(tdActions);
+
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function addMonitoredTarget() {
+            const domain = document.getElementById('monitorDomain').value.trim();
+            const webhookUrl = document.getElementById('monitorWebhook').value.trim();
+
+            if (!domain) {
+                alert('Domain is required');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/monitor/targets', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ domain: domain, webhook_url: webhookUrl || null })
+                });
+
+                if (!response.ok) throw new Error('Failed to add target');
+
+                document.getElementById('monitorDomain').value = '';
+                document.getElementById('monitorWebhook').value = '';
+                fetchTargets();
+            } catch (error) {
+                console.error(error);
+                alert('Error adding target');
+            }
+        }
+
+        async function deleteTarget(id) {
+            try {
+                const response = await fetch(`/api/monitor/targets/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Failed to delete target');
+                fetchTargets();
+            } catch (error) {
+                console.error(error);
+                alert('Error deleting target');
+            }
+        }
+
+        async function runAuditCheck() {
+            const btn = document.getElementById('runCheckBtn');
+            const loading = document.getElementById('monitorLoading');
+
+            btn.disabled = true;
+            loading.style.display = 'inline-block';
+
+            try {
+                const response = await fetch('/api/monitor/run-check', { method: 'POST' });
+                if (!response.ok) throw new Error('Failed to run check');
+                const res = await response.json();
+                alert(`Check completed! Checked ${res.targets_checked} targets, ${res.alerts_triggered} alerts triggered.`);
+                fetchTargets();
+            } catch (error) {
+                console.error(error);
+                alert('Error running audit check');
+            } finally {
+                btn.disabled = false;
+                loading.style.display = 'none';
+            }
+        }
+
+        async function scanBatch() {
+            const domainsText = document.getElementById('batch-domains').value;
+            const fileInput = document.getElementById('batch-file');
+
+            const batchBtn = document.getElementById('batchScanBtn');
+            const batchLoading = document.getElementById('batch-loading');
+            const batchResultCard = document.getElementById('batchResultCard');
+            const tbody = document.querySelector('#batch-results-table tbody');
+
+            let domains = domainsText.split(/\n|,/).map(d => d.trim()).filter(d => d);
+
+            if (domains.length === 0 && (!fileInput.files || fileInput.files.length === 0)) {
+                alert('Please enter domains or select a file.');
+                return;
+            }
+
+            batchBtn.disabled = true;
+            batchLoading.style.display = 'block';
+            batchResultCard.classList.remove('active');
+            tbody.innerHTML = '';
+            currentBatchResults = [];
+
+            try {
+                let response;
+                if (fileInput.files && fileInput.files.length > 0) {
+                    const formData = new FormData();
+                    formData.append('file', fileInput.files[0]);
+
+                    response = await fetch('/api/scan/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    response = await fetch('/api/scan/batch', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ domains: domains })
+                    });
+                }
+
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const data = await response.json();
+                currentBatchResults = data;
+
+                data.forEach(res => {
+                    const tr = document.createElement('tr');
+
+                    const tdDomain = document.createElement('td');
+                    tdDomain.textContent = res.domain;
+
+                    const tdStatus = document.createElement('td');
+                    const spanStatus = document.createElement('span');
+                    spanStatus.classList.add('badge-small');
+                    if (res.status === 'SECURE') {
+                        spanStatus.textContent = 'SECURE';
+                        spanStatus.classList.add('secure');
+                    } else if (res.status === 'VULNERABLE') {
+                        spanStatus.textContent = 'VULNERABLE';
+                        spanStatus.classList.add('vulnerable');
+                    } else {
+                        spanStatus.textContent = res.status;
+                        spanStatus.classList.add('error');
+                    }
+                    tdStatus.appendChild(spanStatus);
+
+                    const tdGroup = document.createElement('td');
+                    tdGroup.textContent = res.group;
+
+                    const tdSigAlg = document.createElement('td');
+                    tdSigAlg.textContent = res.leaf_signature_algorithm || 'N/A';
+
+                    const tdTimestamp = document.createElement('td');
+                    tdTimestamp.textContent = new Date(res.timestamp).toLocaleString();
+
+                    tr.appendChild(tdDomain);
+                    tr.appendChild(tdStatus);
+                    tr.appendChild(tdGroup);
+                    tr.appendChild(tdSigAlg);
+                    tr.appendChild(tdTimestamp);
+
+                    tbody.appendChild(tr);
+                });
+
+                batchResultCard.classList.add('active');
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while scanning the batch.');
+            } finally {
+                batchLoading.style.display = 'none';
+                batchBtn.disabled = false;
+            }
+        }
+
+        function downloadBatchCbom() {
+            if (currentBatchResults.length === 0) return;
+
+            const components = currentBatchResults.map(res => {
+                const is_secure = res.status === "SECURE";
+                return {
+                    "type": "server",
+                    "name": res.domain,
+                    "properties": [
+                        { "name": "port", "value": res.port.toString() }
+                    ],
+                    "components": [
+                        {
+                            "type": "cryptographic-asset",
+                            "name": "TLS Key Exchange",
+                            "cryptoProperties": {
+                                "protocolVersion": "TLS 1.3",
+                                "keyAgreementGroup": res.group,
+                                "nistFips203Status": is_secure ? "Supported" : "Not Supported",
+                                "securityLevel": is_secure ? "Post-Quantum" : "Classical",
+                                "riskPosture": is_secure ? "Quantum-Resistant" : "Vulnerable: Harvest Now, Decrypt Later"
+                            }
+                        }
+                    ]
+                };
+            });
+
+            const cbom = {
+                "bomFormat": "CycloneDX",
+                "specVersion": "1.5",
+                "version": 1,
+                "metadata": {
+                    "timestamp": new Date().toISOString()
+                },
+                "components": components
+            };
+
+            const blob = new Blob([JSON.stringify(cbom, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `cbom-batch-${new Date().toISOString()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        async function downloadPdf() {
+            const domain = document.getElementById('resDomain').textContent;
+            if (!domain) return;
+
+            try {
+                const response = await fetch('/api/export/pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ domain: domain })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate PDF');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `executive-summary-${domain}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Error downloading PDF:', error);
+                alert('An error occurred while downloading the PDF.');
+            }
+        }
+
+        async function downloadCbom() {
+            const domain = document.getElementById('resDomain').textContent;
+            if (!domain) return;
+
+            try {
+                const response = await fetch('/api/export/cbom', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ domain: domain })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate CBOM');
+                }
+
+                const data = await response.json();
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `cbom-${domain}.json`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Error downloading CBOM:', error);
+                alert('An error occurred while downloading the CBOM.');
+            }
+        }
+
+        async function scanDomain() {
+            const domainInput = document.getElementById('domain');
+            const scanBtn = document.getElementById('scanBtn');
+            const resultCard = document.getElementById('resultCard');
+            const loading = document.getElementById('loading');
+            const badge = document.getElementById('badge');
+
+            const domain = domainInput.value.trim();
+
+            if (!domain) {
+                alert('Please enter a domain.');
+                return;
+            }
+
+            // Reset UI
+            resultCard.classList.remove('active');
+            loading.style.display = 'block';
+            scanBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ domain: domain })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+
+                // Update Results
+                document.getElementById('resDomain').textContent = data.domain;
+                document.getElementById('resPort').textContent = data.port;
+                document.getElementById('resGroup').textContent = data.group;
+                document.getElementById('resPosture').textContent = data.posture;
+
+                let date = new Date(data.timestamp);
+                document.getElementById('resTimestamp').textContent = date.toLocaleString();
+
+                // Update Signature fields
+                document.getElementById('resSigAlg').textContent = data.leaf_signature_algorithm || 'N/A';
+                document.getElementById('resKeyType').textContent = data.leaf_key_type || 'N/A';
+                document.getElementById('resKeySize').textContent = data.leaf_key_size_bits || 'N/A';
+                document.getElementById('resSigPosture').textContent = data.signature_pqc_status || 'N/A';
+
+                // Update Badge
+                badge.className = 'badge'; // reset
+                if (data.status === 'SECURE') {
+                    badge.textContent = 'SECURE (Post-Quantum Ready)';
+                    badge.classList.add('secure');
+                } else if (data.status === 'VULNERABLE') {
+                    badge.textContent = 'VULNERABLE (Harvest Now, Decrypt Later)';
+                    badge.classList.add('vulnerable');
+                } else {
+                    badge.textContent = data.status + ' (' + data.posture + ')';
+                    badge.classList.add('error');
+                }
+
+                resultCard.classList.add('active');
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while scanning the domain.');
+            } finally {
+                loading.style.display = 'none';
+                scanBtn.disabled = false;
+            }
+        }
+
+        // Allow Enter key to trigger scan
+        document.getElementById('domain').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                scanDomain();
+            }
+        });
+    </script>
+</body>
+</html>
