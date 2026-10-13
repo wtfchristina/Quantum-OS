@@ -85,7 +85,7 @@
         float dist = length(pos.xz);
         vDist = dist;
 
-        float wave = sin(dist * 0.45 - uTime * 2.2) * uAmplitude * exp(-dist * 0.08);
+        float wave = sin(dist * 0.45 - uTime * 2.2) * uAmplitude * exp(-dist * 0.08) * smoothstep(1.5, 4.5, dist);
         float well = (1.0 - uG00) * 3.8 / (dist * 0.22 + 1.0);
 
         pos.y = wave - well;
@@ -200,7 +200,7 @@
       uniforms.uTime.value = t * 0.001;
       mesh.rotation.y += 0.0008;
       ergoMesh.rotation.y += 0.002;
-      trailLine.rotation.y = mesh.rotation.y;
+      // trailLine locked to world space
       renderer.render(scene, camera);
     }
     animate(0);
@@ -266,9 +266,18 @@
           if (data.physics.orbit_x !== undefined) {
             const px = data.physics.orbit_x;
             const pz = data.physics.orbit_z;
-            const py = -((1.0 - data.physics.metric_r00) * 2.5);
-            orbMesh.position.set(px, py + 0.3, pz);
-            addTrailPoint(px, py + 0.3, pz);
+            const dist = Math.sqrt(px * px + pz * pz);
+            const t = uniforms.uTime.value;
+            const amp = uniforms.uAmplitude.value;
+            const g00 = uniforms.uG00.value;
+
+            // Match vertex shader displacement exactly
+            const wave = Math.sin(dist * 0.45 - t * 2.2) * amp * Math.exp(-dist * 0.08);
+            const well = (1.0 - g00) * 3.8 / (dist * 0.22 + 1.0);
+            const py = wave - well;
+
+            orbMesh.position.set(px, py + 0.25, pz);
+            addTrailPoint(px, py + 0.25, pz);
           }
         }
       } catch (err) {}
