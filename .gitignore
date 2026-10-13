@@ -1,0 +1,10 @@
+venv/
+cache/
+out/
+broadcast/
+.env
+*.pyc
+__pycache__/
+*.egg-info/
+.DS_Store
+*/.DS_Store

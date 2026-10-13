@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuantumCore | Agent Financial Infrastructure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+  <style>
+    body { background-color: #0b0f19; color: #f3f4f6; }
+    .glow { box-shadow: 0 0 25px rgba(59, 130, 246, 0.15); }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Header -->
+  <header class="border-b border-gray-800 bg-[#0d1322]/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">QC</div>
+        <span class="text-xl font-bold tracking-tight text-white">Quantum<span class="text-blue-500">Core</span></span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Sepolia Live
+        </span>
+        <a href="https://github.com/wtfchristina/quantumcore" target="_blank" class="text-sm text-gray-400 hover:text-white transition">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Hero & Metrics -->
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Programmable Financial Core for <span class="text-blue-400">Autonomous Agents</span>
+      </h1>
+      <p class="text-gray-400 text-base md:text-lg">
+        Enforcing on-chain spending guardrails, per-transaction velocity limits, and real-time settlement for AI agents.
+      </p>
+    </div>
+
+    <!-- Live Contract Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="p-6 rounded-2xl bg-gray-900/60 border border-gray-800 glow">
+        <div class="text-xs uppercase font-semibold text-gray-400 mb-1">Vault Reserves</div>
+        <div class="text-3xl font-bold text-white tracking-tight" id="vault-balance">Loading...</div>
+        <div class="text-xs text-gray-500 mt-2">TestUSD (qUSD) Token Pool</div>
+      </div>
+      
+      <div class="p-6 rounded-2xl bg-gray-900/60 border border-gray-800 glow">
+        <div class="text-xs uppercase font-semibold text-gray-400 mb-1">Max Per-Tx Guardrail</div>
+        <div class="text-3xl font-bold text-blue-400 tracking-tight" id="max-per-tx">$5.00</div>
+        <div class="text-xs text-gray-500 mt-2">Hard Smart Contract Limit</div>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-gray-900/60 border border-gray-800 glow">
+        <div class="text-xs uppercase font-semibold text-gray-400 mb-1">Hourly Utilization</div>
+        <div class="text-3xl font-bold text-emerald-400 tracking-tight" id="hourly-spend">$0.00 / $20.00</div>
+        <div class="w-full bg-gray-800 rounded-full h-2 mt-3 overflow-hidden">
+          <div id="spend-bar" class="bg-emerald-500 h-2 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contract Reference & Quickstart -->
+    <div class="p-6 rounded-2xl bg-gray-900/40 border border-gray-800 mb-12">
+      <h2 class="text-lg font-bold text-white mb-4">Verified Deployment (Ethereum Sepolia)</h2>
+      <div class="space-y-3 text-sm font-mono">
+        <div class="flex flex-col md:flex-row md:justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
+          <span class="text-gray-400">QuantumVault:</span>
+          <a href="https://sepolia.etherscan.io/address/0x82A11A9e65B927B0652A84b331EAeDBa6D11d6f0" target="_blank" class="text-blue-400 hover:underline">0x82A11A9e65B927B0652A84b331EAeDBa6D11d6f0</a>
+        </div>
+        <div class="flex flex-col md:flex-row md:justify-between p-3 bg-black/40 rounded-lg border border-gray-800">
+          <span class="text-gray-400">TestUSD (qUSD):</span>
+          <a href="https://sepolia.etherscan.io/address/0x2E7cf43296Fe3a157c9C28c011629bd0BA0A307E" target="_blank" class="text-blue-400 hover:underline">0x2E7cf43296Fe3a157c9C28c011629bd0BA0A307E</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Execution Logs -->
+    <div class="p-6 rounded-2xl bg-gray-900/40 border border-gray-800">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-white">Live On-Chain Settlement Stream</h2>
+        <span class="text-xs text-gray-500 font-mono">RPC: Tenderly Gateway</span>
+      </div>
+      <div id="tx-log" class="space-y-3 font-mono text-xs">
+        <div class="p-3 bg-black/40 rounded-lg border border-gray-800 text-gray-400">Connecting to Sepolia RPC to fetch settlement receipts...</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-[#0d1322] py-6 text-center text-xs text-gray-500">
+    QuantumCore &bull; Hosted at <a href="https://www.quantumcore.cloud" class="text-gray-400 hover:underline">www.quantumcore.cloud</a> &bull; Ethereum Sepolia
+  </footer>
+
+  <script>
+    const RPC_URL = "https://sepolia.gateway.tenderly.co";
+    const VAULT_ADDR = "0x82A11A9e65B927B0652A84b331EAeDBa6D11d6f0";
+    const TOKEN_ADDR = "0x2E7cf43296Fe3a157c9C28c011629bd0BA0A307E";
+
+    const VAULT_ABI = [
+      "function maxPerTx() view returns (uint256)",
+      "function hourlyCap() view returns (uint256)",
+      "function spentThisHour() view returns (uint256)",
+      "event PaymentExecuted(address indexed recipient, uint256 amount, uint256 spentThisHour)"
+    ];
+
+    const TOKEN_ABI = [
+      "function balanceOf(address account) view returns (uint256)"
+    ];
+
+    async function loadContractData() {
+      try {
+        const provider = new ethers.JsonRpcProvider(RPC_URL);
+        const vault = new ethers.Contract(VAULT_ADDR, VAULT_ABI, provider);
+        const token = new ethers.Contract(TOKEN_ADDR, TOKEN_ABI, provider);
+
+        const [balance, maxTx, hourlyCap, spentHour] = await Promise.all([
+          token.balanceOf(VAULT_ADDR),
+          vault.maxPerTx(),
+          vault.hourlyCap(),
+          vault.spentThisHour()
+        ]);
+
+        const balFormatted = (Number(balance) / 1e6).toFixed(2);
+        const maxTxFormatted = (Number(maxTx) / 1e6).toFixed(2);
+        const hourlyCapFormatted = (Number(hourlyCap) / 1e6).toFixed(2);
+        const spentHourFormatted = (Number(spentHour) / 1e6).toFixed(2);
+
+        document.getElementById("vault-balance").innerText = `$${balFormatted}`;
+        document.getElementById("max-per-tx").innerText = `$${maxTxFormatted}`;
+        document.getElementById("hourly-spend").innerText = `$${spentHourFormatted} / $${hourlyCapFormatted}`;
+
+        const pct = Math.min((Number(spentHour) / Number(hourlyCap)) * 100, 100);
+        document.getElementById("spend-bar").style.width = `${pct}%`;
+
+        // Fetch recent PaymentExecuted events
+        const currentBlock = await provider.getBlockNumber();
+        const events = await vault.queryFilter("PaymentExecuted", currentBlock - 1500, currentBlock);
+        const logContainer = document.getElementById("tx-log");
+
+        if (events.length === 0) {
+          logContainer.innerHTML = `<div class="p-3 bg-black/40 rounded-lg border border-gray-800 text-gray-400">No events detected in the last 1,500 blocks. Ready for execution.</div>`;
+        } else {
+          logContainer.innerHTML = events.slice(-5).reverse().map(e => `
+            <div class="p-3 bg-black/40 rounded-lg border border-gray-800 flex justify-between items-center">
+              <div>
+                <span class="text-emerald-400 font-semibold">Payment Confirmed</span>
+                <span class="text-gray-400 ml-2">To: ${e.args[0].slice(0, 8)}...${e.args[0].slice(-6)}</span>
+              </div>
+              <div class="text-right">
+                <span class="text-white font-bold">$${(Number(e.args[1]) / 1e6).toFixed(2)}</span>
+                <a href="https://sepolia.etherscan.io/tx/${e.transactionHash}" target="_blank" class="text-blue-400 hover:underline block text-[10px]">View Tx</a>
+              </div>
+            </div>
+          `).join("");
+        }
+      } catch (err) {
+        console.error("RPC Error:", err);
+      }
+    }
+
+    loadContractData();
+    setInterval(loadContractData, 12000);
+  </script>
+</body>
+</html>
