@@ -1,0 +1,11 @@
+{
+  "mean_per_run_nominal_rmse_m": {
+    "ins": 9.588947578796773,
+    "gravity": 5.630947454319399,
+    "magnetic": 4.840546393981017,
+    "fused": 3.2719866933683086
+  },
+  "reduction_vs_imu_with_stationary_pct": 65.87752027549534,
+  "nominal_runs": 5,
+  "baseline_includes_trusted_stationary_velocity_aiding": true
+}

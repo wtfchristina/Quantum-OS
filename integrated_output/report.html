@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><title>Quantum Sensing v0.3</title><style>body{max-width:1150px;margin:40px auto;font:18px system-ui;background:#0c1627;color:#eef5ff}img{width:100%}pre{white-space:pre-wrap}td,th{padding:10px;text-align:right}td:first-child,th:first-child{text-align:left}table{width:100%;border-collapse:collapse}tr{border-bottom:1px solid #394555}</style><h1>Quantum Sensing v0.3</h1><p>NV sensing connected to the existing gravity v0.7 FusionEKF. Synthetic stop-and-measure route; known fixed sensor axis; Trusted stationary signal provides zero-velocity observations equally to all modes. No hardware performance claim.</p><img src="integration.png" alt="Integrated four-mode navigation comparison"><h2>All benchmark results</h2><table><tr><th>Case</th><th>Seed</th><th>IMU + stationary RMSE (m)</th><th>gravity RMSE (m)</th><th>magnetic RMSE (m)</th><th>fused RMSE (m)</th></tr><tr><td>nominal</td><td>17</td><td>4.84</td><td>4.94</td><td>4.63</td><td>3.75</td></tr><tr><td>nominal</td><td>3</td><td>10.01</td><td>4.42</td><td>5.30</td><td>2.97</td></tr><tr><td>nominal</td><td>11</td><td>12.06</td><td>6.94</td><td>4.08</td><td>3.33</td></tr><tr><td>nominal</td><td>29</td><td>7.05</td><td>6.41</td><td>4.55</td><td>3.10</td></tr><tr><td>nominal</td><td>47</td><td>13.98</td><td>5.45</td><td>5.64</td><td>3.20</td></tr><tr><td>dropouts</td><td>17</td><td>4.84</td><td>4.94</td><td>5.71</td><td>3.97</td></tr><tr><td>interference</td><td>17</td><td>4.84</td><td>4.94</td><td>5.16</td><td>3.81</td></tr><tr><td>flat_magnetic</td><td>17</td><td>4.84</td><td>4.94</td><td>4.84</td><td>4.94</td></tr></table><h2>Nominal run</h2><pre>{
+  "config": {
+    "seed": 17,
+    "waypoints": 40,
+    "scenario": "nominal",
+    "dt_s": 0.5,
+    "stationary_s": 21.0,
+    "transit_s": 10.0,
+    "gravity_std": 2.0,
+    "stationary_aiding": true,
+    "stationary_velocity_std_mps": 0.03
+  },
+  "metrics": {
+    "ins": {
+      "rmse_m": 4.836512367463023,
+      "final_error_m": 8.561667804890316,
+      "max_error_m": 10.269282082174001,
+      "gravity_updates": 0,
+      "magnetic_updates": 0
+    },
+    "gravity": {
+      "rmse_m": 4.938111961502933,
+      "final_error_m": 1.5163933978536264,
+      "max_error_m": 11.497607495217247,
+      "gravity_updates": 40,
+      "magnetic_updates": 0
+    },
+    "magnetic": {
+      "rmse_m": 4.6279567865405875,
+      "final_error_m": 3.6047299455406576,
+      "max_error_m": 11.378083274485927,
+      "gravity_updates": 0,
+      "magnetic_updates": 40
+    },
+    "fused": {
+      "rmse_m": 3.7508252869770446,
+      "final_error_m": 0.26362633896528076,
+      "max_error_m": 11.93823756511009,
+      "gravity_updates": 40,
+      "magnetic_updates": 40
+    }
+  },
+  "duration_s": 1230.0,
+  "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+}</pre><h2>Diagnostic: stationary aiding disabled</h2><p>Retained initial campaign. Several local-filter runs diverged. No recovery or guaranteed global localization is implemented.</p><table><tr><th>Case</th><th>Seed</th><th>Fused RMSE (m)</th></tr><tr><td>nominal</td><td>17</td><td>7.42</td></tr><tr><td>nominal</td><td>3</td><td>45.76</td></tr><tr><td>nominal</td><td>11</td><td>91.02</td></tr><tr><td>nominal</td><td>29</td><td>99.97</td></tr><tr><td>nominal</td><td>47</td><td>11636.64</td></tr><tr><td>dropouts</td><td>17</td><td>2275.52</td></tr><tr><td>interference</td><td>17</td><td>10.13</td></tr><tr><td>flat_magnetic</td><td>17</td><td>9612.07</td></tr></table>

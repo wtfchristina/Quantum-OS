@@ -1,0 +1,104 @@
+{
+  "schema": "relativisticq-pnt.import.v1",
+  "frame": "local_xy",
+  "coordinate_system_id": "v03-fictional-local-map",
+  "timebase_id": "v03-nominal-simulation",
+  "timebase_description": "Relative seconds since simulation initialization; not wall clock.",
+  "axis_local_xyz": [
+    0,
+    0,
+    1
+  ],
+  "magnetic_map": {
+    "csv": "reference_map.csv",
+    "observable": "fixed_axis_magnitude",
+    "axis_local_xyz": [
+      0,
+      0,
+      1
+    ],
+    "position_units": "m",
+    "field_units": "nT",
+    "error_std": 650,
+    "independence_statement": "NOT independent: sampled from the same synthetic environment used for scans.",
+    "provenance": {
+      "origin": "synthetic",
+      "source_id": "v03-nominal-map",
+      "description": "Fictional fixed-axis grid exported from the retained simulation."
+    }
+  },
+  "scans": [
+    {
+      "csv": "scan_000.csv",
+      "sequence": 0,
+      "frequency_units": "GHz",
+      "counts_kind": "raw_photon_counts",
+      "equal_dwell_confirmed": true,
+      "dwell_s": 0.05,
+      "scan_start_s": 0.9499999999999993,
+      "scan_end_s": 21.0,
+      "stationary_confirmed": true,
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "provenance": {
+        "origin": "synthetic",
+        "source_id": "v03-simulated-scan-0",
+        "description": "Poisson photon-count simulation; not measured instrument data."
+      }
+    },
+    {
+      "csv": "scan_001.csv",
+      "sequence": 1,
+      "frequency_units": "GHz",
+      "counts_kind": "raw_photon_counts",
+      "equal_dwell_confirmed": true,
+      "dwell_s": 0.05,
+      "scan_start_s": 31.95,
+      "scan_end_s": 52.0,
+      "stationary_confirmed": true,
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "provenance": {
+        "origin": "synthetic",
+        "source_id": "v03-simulated-scan-1",
+        "description": "Poisson photon-count simulation; not measured instrument data."
+      }
+    },
+    {
+      "csv": "scan_002.csv",
+      "sequence": 2,
+      "frequency_units": "GHz",
+      "counts_kind": "raw_photon_counts",
+      "equal_dwell_confirmed": true,
+      "dwell_s": 0.05,
+      "scan_start_s": 62.95,
+      "scan_end_s": 83.0,
+      "stationary_confirmed": true,
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "provenance": {
+        "origin": "synthetic",
+        "source_id": "v03-simulated-scan-2",
+        "description": "Poisson photon-count simulation; not measured instrument data."
+      }
+    }
+  ]
+}

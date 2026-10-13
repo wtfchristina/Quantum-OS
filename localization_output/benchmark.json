@@ -1,0 +1,98 @@
+[
+  {
+    "seed": 17,
+    "scenario": "nominal",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 23.218383434714596,
+    "magnetic_aided_rmse_m": 7.255800707645549,
+    "dead_reckoning_final_error_m": 42.41713774314118,
+    "magnetic_aided_final_error_m": 8.224090031329533,
+    "measurement_updates": 60,
+    "median_match_latency_ms": 0.7820464999781507,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 3,
+    "scenario": "nominal",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 26.218053897164054,
+    "magnetic_aided_rmse_m": 7.637355453795721,
+    "dead_reckoning_final_error_m": 43.4900686270966,
+    "magnetic_aided_final_error_m": 4.178103997421403,
+    "measurement_updates": 60,
+    "median_match_latency_ms": 0.7866605000117488,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 11,
+    "scenario": "nominal",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 28.02025316611634,
+    "magnetic_aided_rmse_m": 8.348512203019732,
+    "dead_reckoning_final_error_m": 48.32196592470485,
+    "magnetic_aided_final_error_m": 7.341047006051502,
+    "measurement_updates": 60,
+    "median_match_latency_ms": 0.7414075000156117,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 29,
+    "scenario": "nominal",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 26.441554189688983,
+    "magnetic_aided_rmse_m": 8.338052152438802,
+    "dead_reckoning_final_error_m": 45.155582131155654,
+    "magnetic_aided_final_error_m": 6.004505568785789,
+    "measurement_updates": 60,
+    "median_match_latency_ms": 0.7488974999887432,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 47,
+    "scenario": "nominal",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 26.666376711130837,
+    "magnetic_aided_rmse_m": 8.355406218765669,
+    "dead_reckoning_final_error_m": 45.77491650840577,
+    "magnetic_aided_final_error_m": 6.213493531197358,
+    "measurement_updates": 60,
+    "median_match_latency_ms": 0.7213504999867837,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 17,
+    "scenario": "dropouts",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 23.218383434714596,
+    "magnetic_aided_rmse_m": 8.324512165512356,
+    "dead_reckoning_final_error_m": 42.41713774314118,
+    "magnetic_aided_final_error_m": 8.317328144699966,
+    "measurement_updates": 50,
+    "median_match_latency_ms": 0.695504499958588,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 17,
+    "scenario": "interference",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 23.218383434714596,
+    "magnetic_aided_rmse_m": 7.433632172679981,
+    "dead_reckoning_final_error_m": 42.41713774314118,
+    "magnetic_aided_final_error_m": 8.083397997208825,
+    "measurement_updates": 55,
+    "median_match_latency_ms": 0.699846999964393,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  },
+  {
+    "seed": 17,
+    "scenario": "flat_map",
+    "steps": 60,
+    "dead_reckoning_rmse_m": 23.218383434714596,
+    "magnetic_aided_rmse_m": 23.08912034453116,
+    "dead_reckoning_final_error_m": 42.41713774314118,
+    "magnetic_aided_final_error_m": 42.16767955172627,
+    "measurement_updates": 0,
+    "median_match_latency_ms": 0.5578225000135717,
+    "scope": "Synthetic fixed-axis, stop-and-measure local tracking; displacement-level inertial surrogate"
+  }
+]

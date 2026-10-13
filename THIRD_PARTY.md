@@ -1,0 +1,3 @@
+# Embedded gravity navigation modules
+
+The selected fusion, dynamics, IMU, synthetic gravity-map and packet modules are copied byte-for-byte from Christina Holt’s gravity-aided-navigation v0.7.0 archive. They are bundled under the private `rq_sensing._gravity_v07` namespace so this release installs independently and does not replace an installed gravity_nav package. Source hashes are in GRAVITY_SOURCE.json; the original MIT license is included in rq_sensing/_gravity_v07/LICENSE.txt and applies to those modules. The new integration and sensing modules have no redistribution license selected. NumPy, SciPy and Matplotlib retain their own licenses.

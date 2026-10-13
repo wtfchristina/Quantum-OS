@@ -1,0 +1,30 @@
+[
+  {
+    "x": 170,
+    "y": 170,
+    "amplitude": 85,
+    "sigma_x": 70,
+    "sigma_y": 45
+  },
+  {
+    "x": 270,
+    "y": 300,
+    "amplitude": -70,
+    "sigma_x": 70,
+    "sigma_y": 55
+  },
+  {
+    "x": 410,
+    "y": 200,
+    "amplitude": 95,
+    "sigma_x": 60,
+    "sigma_y": 65
+  },
+  {
+    "x": 550,
+    "y": 320,
+    "amplitude": -55,
+    "sigma_x": 65,
+    "sigma_y": 50
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "version": "0.7.0",
+  "source_archive": "gravity-aided-navigation-v0.7.0.zip",
+  "archive_sha256": "92279e1130ccbd28d9938bd8b7d9c56655e05a9a880496373b84f87a11e6d71f",
+  "modules_sha256": {
+    "fusion.py": "8b2b7ad3799bc69ed67aefcdbaeb5013b0d16d95808b6ce34e70fd68d24e61e1",
+    "dynamics.py": "7733e015a41ecfec064475a3ba8bf9b617e4cb5124a828ec634c6e4f8be56a96",
+    "imu.py": "d49ee58983d782e502a1999ab509044dae4a527965573f60df14bd02a6742d14",
+    "gravity_map.py": "5e6f5fa1faf369ab30ee731a0cd4f2188a0ec680222101d0801dd2106e36f06b",
+    "packets.py": "f5d670dba1c95cb026bfc743c052cd5d3dbec32461e7f75b6fbcd591b2f00a8c"
+  }
+}

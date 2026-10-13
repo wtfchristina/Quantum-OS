@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "relativisticq-quantum-sensing"
+version = "0.4.0"
+description = "RelativisticQ-PNT: auditable ODMR and map imports with local sensor fusion"
+readme = "README.md"
+authors = [{name = "Christina Holt"}]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<3", "scipy>=1.10,<2", "matplotlib>=3.7,<4"]
+
+[project.scripts]
+rq-sensing = "rq_sensing.cli:main"
+rq-pnt-import = "rq_sensing.import_cli:main"
+
+
+
+[tool.setuptools.packages.find]
+include = ["rq_sensing*"]
+
+[tool.setuptools.package-data]
+"rq_sensing._gravity_v07" = ["LICENSE.txt"]

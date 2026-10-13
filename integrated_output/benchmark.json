@@ -1,0 +1,362 @@
+[
+  {
+    "config": {
+      "seed": 17,
+      "waypoints": 40,
+      "scenario": "nominal",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 4.836512367463023,
+        "final_error_m": 8.561667804890316,
+        "max_error_m": 10.269282082174001,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 4.938111961502933,
+        "final_error_m": 1.5163933978536264,
+        "max_error_m": 11.497607495217247,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 4.6279567865405875,
+        "final_error_m": 3.6047299455406576,
+        "max_error_m": 11.378083274485927,
+        "gravity_updates": 0,
+        "magnetic_updates": 40
+      },
+      "fused": {
+        "rmse_m": 3.7508252869770446,
+        "final_error_m": 0.26362633896528076,
+        "max_error_m": 11.93823756511009,
+        "gravity_updates": 40,
+        "magnetic_updates": 40
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 3,
+      "waypoints": 40,
+      "scenario": "nominal",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 10.012551821688746,
+        "final_error_m": 16.75594553050728,
+        "max_error_m": 17.467597586009425,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 4.423763417190026,
+        "final_error_m": 6.0394971357280065,
+        "max_error_m": 12.068089452380253,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 5.298926804152695,
+        "final_error_m": 3.110566568634965,
+        "max_error_m": 12.756652149094972,
+        "gravity_updates": 0,
+        "magnetic_updates": 40
+      },
+      "fused": {
+        "rmse_m": 2.9725953103085323,
+        "final_error_m": 1.6669028129323522,
+        "max_error_m": 9.489100300777432,
+        "gravity_updates": 40,
+        "magnetic_updates": 40
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 11,
+      "waypoints": 40,
+      "scenario": "nominal",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 12.05961416969906,
+        "final_error_m": 20.62512830113103,
+        "max_error_m": 26.027636501259796,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 6.940753536821665,
+        "final_error_m": 1.1940540148205756,
+        "max_error_m": 15.303975874338423,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 4.08114724730629,
+        "final_error_m": 0.963590806258598,
+        "max_error_m": 10.301987144459916,
+        "gravity_updates": 0,
+        "magnetic_updates": 40
+      },
+      "fused": {
+        "rmse_m": 3.334305796289303,
+        "final_error_m": 1.1569708047123026,
+        "max_error_m": 11.691765694733059,
+        "gravity_updates": 40,
+        "magnetic_updates": 40
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 29,
+      "waypoints": 40,
+      "scenario": "nominal",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 7.052411620187864,
+        "final_error_m": 9.597321110784328,
+        "max_error_m": 16.881856334318893,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 6.406604449991949,
+        "final_error_m": 7.132527611535099,
+        "max_error_m": 15.470328301489635,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 4.553415442883796,
+        "final_error_m": 3.2379766301540998,
+        "max_error_m": 11.747689749045744,
+        "gravity_updates": 0,
+        "magnetic_updates": 40
+      },
+      "fused": {
+        "rmse_m": 3.0974425951171547,
+        "final_error_m": 1.3659843217949168,
+        "max_error_m": 10.229119841984952,
+        "gravity_updates": 40,
+        "magnetic_updates": 40
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 47,
+      "waypoints": 40,
+      "scenario": "nominal",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 13.983647914945184,
+        "final_error_m": 21.790949445782935,
+        "max_error_m": 26.92696156648781,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 5.445503906090422,
+        "final_error_m": 3.3053475571632984,
+        "max_error_m": 13.605086576762632,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 5.641285689021719,
+        "final_error_m": 1.7743430278853538,
+        "max_error_m": 16.027775652900516,
+        "gravity_updates": 0,
+        "magnetic_updates": 40
+      },
+      "fused": {
+        "rmse_m": 3.2047644781495093,
+        "final_error_m": 1.2236460428856717,
+        "max_error_m": 7.839622092091964,
+        "gravity_updates": 40,
+        "magnetic_updates": 40
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 17,
+      "waypoints": 40,
+      "scenario": "dropouts",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 4.836512367463023,
+        "final_error_m": 8.561667804890316,
+        "max_error_m": 10.269282082174001,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 4.938111961502933,
+        "final_error_m": 1.5163933978536264,
+        "max_error_m": 11.497607495217247,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 5.707244649220545,
+        "final_error_m": 3.6085337466847616,
+        "max_error_m": 11.378083274485927,
+        "gravity_updates": 0,
+        "magnetic_updates": 32
+      },
+      "fused": {
+        "rmse_m": 3.9721267131971705,
+        "final_error_m": 0.26364715813202677,
+        "max_error_m": 11.93823756511009,
+        "gravity_updates": 40,
+        "magnetic_updates": 32
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 17,
+      "waypoints": 40,
+      "scenario": "interference",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 4.836512367463023,
+        "final_error_m": 8.561667804890316,
+        "max_error_m": 10.269282082174001,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 4.938111961502933,
+        "final_error_m": 1.5163933978536264,
+        "max_error_m": 11.497607495217247,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 5.158915294077872,
+        "final_error_m": 3.586090074739418,
+        "max_error_m": 11.378083274485927,
+        "gravity_updates": 0,
+        "magnetic_updates": 35
+      },
+      "fused": {
+        "rmse_m": 3.806138557992407,
+        "final_error_m": 0.26362817613691053,
+        "max_error_m": 11.93823756511009,
+        "gravity_updates": 40,
+        "magnetic_updates": 35
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  },
+  {
+    "config": {
+      "seed": 17,
+      "waypoints": 40,
+      "scenario": "flat_magnetic",
+      "dt_s": 0.5,
+      "stationary_s": 21.0,
+      "transit_s": 10.0,
+      "gravity_std": 2.0,
+      "stationary_aiding": true,
+      "stationary_velocity_std_mps": 0.03
+    },
+    "metrics": {
+      "ins": {
+        "rmse_m": 4.836512367463023,
+        "final_error_m": 8.561667804890316,
+        "max_error_m": 10.269282082174001,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "gravity": {
+        "rmse_m": 4.938111961502933,
+        "final_error_m": 1.5163933978536264,
+        "max_error_m": 11.497607495217247,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      },
+      "magnetic": {
+        "rmse_m": 4.836512367463023,
+        "final_error_m": 8.561667804890316,
+        "max_error_m": 10.269282082174001,
+        "gravity_updates": 0,
+        "magnetic_updates": 0
+      },
+      "fused": {
+        "rmse_m": 4.938111961502933,
+        "final_error_m": 1.5163933978536264,
+        "max_error_m": 11.497607495217247,
+        "gravity_updates": 40,
+        "magnetic_updates": 0
+      }
+    },
+    "duration_s": 1230.0,
+    "scope": "Synthetic stationary ODMR scans, fixed known axis, local planar acceleration model"
+  }
+]

@@ -1,0 +1,74 @@
+test_duplicate_rejected_without_state_change (test_fusion_bridge.FusionBridgeTests.test_duplicate_rejected_without_state_change) ... ok
+test_embedded_source_hashes (test_fusion_bridge.FusionBridgeTests.test_embedded_source_hashes) ... ok
+test_exact_upstream_update_equivalence (test_fusion_bridge.FusionBridgeTests.test_exact_upstream_update_equivalence) ... ok
+test_future_gravity_rejected (test_fusion_bridge.FusionBridgeTests.test_future_gravity_rejected) ... ok
+test_gate_and_unavailable_map (test_fusion_bridge.FusionBridgeTests.test_gate_and_unavailable_map) ... ok
+test_gravity_update_and_covariance_psd (test_fusion_bridge.FusionBridgeTests.test_gravity_update_and_covariance_psd) ... ok
+test_invalid_configuration_and_predict (test_fusion_bridge.FusionBridgeTests.test_invalid_configuration_and_predict) ... ok
+test_map_value_and_gradient_unit_conversion (test_fusion_bridge.FusionBridgeTests.test_map_value_and_gradient_unit_conversion) ... ok
+test_nt_conversion_packet_roundtrip (test_fusion_bridge.FusionBridgeTests.test_nt_conversion_packet_roundtrip) ... ok
+test_stale_future_and_wrong_contract (test_fusion_bridge.FusionBridgeTests.test_stale_future_and_wrong_contract) ... ok
+test_stationary_velocity_update (test_fusion_bridge.FusionBridgeTests.test_stationary_velocity_update) ... ok
+test_boolean_sequence (test_import_data.ImportTests.test_boolean_sequence) ... ok
+test_calibration_inflates_uncertainty (test_import_data.ImportTests.test_calibration_inflates_uncertainty) ... ok
+test_conversion_audit (test_import_data.ImportTests.test_conversion_audit) ... ok
+test_duplicate_coordinate (test_import_data.ImportTests.test_duplicate_coordinate) ... ok
+test_duplicate_sequence (test_import_data.ImportTests.test_duplicate_sequence) ... ok
+test_flat_scan_retains_rejection_without_packet (test_import_data.ImportTests.test_flat_scan_retains_rejection_without_packet) ... /workspace/scratch/b0f662e160d6/RelativisticQ-PNT-v0.4.0/rq_sensing/core.py:159: RuntimeWarning: invalid value encountered in sqrt
+  uncertainty = half/root/GAMMA_MHZ_PER_UT*np.sqrt(covariance[1,1])
+ok
+test_fractional_counts (test_import_data.ImportTests.test_fractional_counts) ... ok
+test_incomplete_grid (test_import_data.ImportTests.test_incomplete_grid) ... ok
+test_initialization_not_object (test_import_data.ImportTests.test_initialization_not_object) ... ok
+test_invalid_origin (test_import_data.ImportTests.test_invalid_origin) ... ok
+test_large_calibration_uncertainty_rejects (test_import_data.ImportTests.test_large_calibration_uncertainty_rejects) ... ok
+test_magnetic_only_replay (test_import_data.ImportTests.test_magnetic_only_replay) ... ok
+test_map_coordinate_conversion_and_order (test_import_data.ImportTests.test_map_coordinate_conversion_and_order) ... ok
+test_measured_origin_remains_declared (test_import_data.ImportTests.test_measured_origin_remains_declared) ... ok
+test_missing_independence_statement (test_import_data.ImportTests.test_missing_independence_statement) ... ok
+test_motion_duplicate_rejected_before_fit (test_import_data.ImportTests.test_motion_duplicate_rejected_before_fit) ... ok
+test_negative_map_value (test_import_data.ImportTests.test_negative_map_value) ... ok
+test_nonfinite_and_negative_calibration (test_import_data.ImportTests.test_nonfinite_and_negative_calibration) ... ok
+test_nonunit_axis (test_import_data.ImportTests.test_nonunit_axis) ... ok
+test_opposite_axis_same_magnitude (test_import_data.ImportTests.test_opposite_axis_same_magnitude) ... ok
+test_overlapping_scans (test_import_data.ImportTests.test_overlapping_scans) ... ok
+test_path_traversal (test_import_data.ImportTests.test_path_traversal) ... ok
+test_physical_gravity_not_silently_accepted (test_import_data.ImportTests.test_physical_gravity_not_silently_accepted) ... ok
+test_raw_counts_contract (test_import_data.ImportTests.test_raw_counts_contract) ... ok
+test_scan_end_requires_imu_epoch (test_import_data.ImportTests.test_scan_end_requires_imu_epoch) ... ok
+test_stationarity_requires_true_boolean (test_import_data.ImportTests.test_stationarity_requires_true_boolean) ... ok
+test_timebase_mismatch (test_import_data.ImportTests.test_timebase_mismatch) ... ok
+test_too_short_scan (test_import_data.ImportTests.test_too_short_scan) ... ok
+test_total_field_map (test_import_data.ImportTests.test_total_field_map) ... ok
+test_toy_gravity_needs_explicit_map (test_import_data.ImportTests.test_toy_gravity_needs_explicit_map) ... ok
+test_truth_free_replay_is_repeatable (test_import_data.ImportTests.test_truth_free_replay_is_repeatable) ... ok
+test_units_and_source_hashes (test_import_data.ImportTests.test_units_and_source_hashes) ... ok
+test_unsupported_units (test_import_data.ImportTests.test_unsupported_units) ... ok
+test_wrong_axis (test_import_data.ImportTests.test_wrong_axis) ... ok
+test_wrong_motion_units (test_import_data.ImportTests.test_wrong_motion_units) ... ok
+test_acquisition_stays_stationary (test_integrated_replay.IntegratedReplayTests.test_acquisition_stays_stationary) ... ok
+test_duplicate_replay_rejected (test_integrated_replay.IntegratedReplayTests.test_duplicate_replay_rejected) ... ok
+test_flat_field_disables_magnetic_aiding (test_integrated_replay.IntegratedReplayTests.test_flat_field_disables_magnetic_aiding) ... ok
+test_sensor_only_replay_matches_fused_state (test_integrated_replay.IntegratedReplayTests.test_sensor_only_replay_matches_fused_state) ... ok
+test_wrong_frame_rejected (test_integrated_replay.IntegratedReplayTests.test_wrong_frame_rejected) ... ok
+test_constrained_axis_improves_unconstrained_axis_remains (test_navigation.NavigationTests.test_constrained_axis_improves_unconstrained_axis_remains) ... ok
+test_extreme_outlier_rejected (test_navigation.NavigationTests.test_extreme_outlier_rejected) ... ok
+test_flat_map_does_not_update (test_navigation.NavigationTests.test_flat_map_does_not_update) ... ok
+test_interpolation_and_roundtrip (test_navigation.NavigationTests.test_interpolation_and_roundtrip) ... ok
+test_outside_map_no_clamp_or_reset (test_navigation.NavigationTests.test_outside_map_no_clamp_or_reset) ... ok
+test_rejected_and_missing_sensor (test_navigation.NavigationTests.test_rejected_and_missing_sensor) ... ok
+test_seeded_reproducibility (test_navigation.NavigationTests.test_seeded_reproducibility) ... ok
+test_validation (test_navigation.NavigationTests.test_validation) ... ok
+test_analytic_and_sign_ambiguity (test_pipeline.PipelineTests.test_analytic_and_sign_ambiguity) ... ok
+test_bad_inputs (test_pipeline.PipelineTests.test_bad_inputs) ... ok
+test_flat_rejected (test_pipeline.PipelineTests.test_flat_rejected) ... ok
+test_mismatch_rejected (test_pipeline.PipelineTests.test_mismatch_rejected) ... ok
+test_noiseless_strain_and_temperature (test_pipeline.PipelineTests.test_noiseless_strain_and_temperature) ... ok
+test_noisy_temperature_drift (test_pipeline.PipelineTests.test_noisy_temperature_drift) ... ok
+test_reproducibility (test_pipeline.PipelineTests.test_reproducibility) ... ok
+test_unresolved_rejected (test_pipeline.PipelineTests.test_unresolved_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 67 tests in 12.690s
+
+OK
