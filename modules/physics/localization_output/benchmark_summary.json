@@ -1,0 +1,6 @@
+{
+  "mean_per_run_dead_reckoning_rmse_m": 26.112924279762968,
+  "mean_per_run_magnetic_aided_rmse_m": 7.987025347133096,
+  "reduction_in_mean_per_run_rmse_pct": 69.41351622834947,
+  "nominal_runs": 5
+}

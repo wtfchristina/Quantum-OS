@@ -1,0 +1,65 @@
+[
+  {
+    "packet_index": 42,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 43,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 1.7320859135624787
+  },
+  {
+    "packet_index": 44,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 589.558106757373
+  },
+  {
+    "packet_index": 107,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 108,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.3768503872468258
+  },
+  {
+    "packet_index": 109,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -247.85069887702412
+  },
+  {
+    "packet_index": 172,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 173,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.6709601187892602
+  },
+  {
+    "packet_index": 174,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 198.64536127387692
+  }
+]

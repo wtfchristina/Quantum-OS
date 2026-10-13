@@ -1,0 +1,185 @@
+[
+  {
+    "sequence": 0,
+    "source": {
+      "origin": "synthetic",
+      "source_id": "v03-simulated-scan-0",
+      "description": "Poisson photon-count simulation; not measured instrument data.",
+      "csv": "scan_000.csv",
+      "csv_sha256": "6e91521ff63c9b8568bc9f2bd394c066554957a1a31035af253fe95161e6290b",
+      "calibration_id": "synthetic-model-v1",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "timebase_id": "v03-nominal-simulation",
+      "timebase_description": "Relative seconds since simulation initialization; not wall clock.",
+      "coordinate_system_id": "v03-fictional-local-map",
+      "axis_local_xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "stationary_confirmed": true,
+      "origin_is_user_declared": true,
+      "sample_count": 401,
+      "dwell_s": 0.05,
+      "adapter": "exported_csv_v1"
+    },
+    "estimate": {
+      "accepted": true,
+      "flags": [],
+      "axial_magnitude_ut": 63.48297500660265,
+      "field_std_ut": 0.1296095589111634,
+      "center_mhz": 2869.9971699857538,
+      "half_splitting_mhz": 1.785419399064347,
+      "linewidth_mhz": 0.3557499236507997,
+      "contrast_low": 0.05869278954082858,
+      "contrast_high": 0.058683683603618565,
+      "reduced_chi_square": 0.9811531344859955,
+      "temperature_proxy_k": 293.18814035372276,
+      "fit_parameters": [
+        2869.9971699857538,
+        1.785419399064347,
+        0.3557499236507997,
+        0.05869278954082858,
+        0.058683683603618565,
+        1.00217612621335,
+        0.009842770830855784
+      ],
+      "timestamp_s": 21.0
+    },
+    "uncertainty_components_ut": {
+      "fit_std_ut": 0.11921100389206724,
+      "strain_std_ut": 0.03008460372031364,
+      "half_splitting_calibration_std_ut": 0.0358090900636076,
+      "systematic_floor_std_ut": 0.02
+    }
+  },
+  {
+    "sequence": 1,
+    "source": {
+      "origin": "synthetic",
+      "source_id": "v03-simulated-scan-1",
+      "description": "Poisson photon-count simulation; not measured instrument data.",
+      "csv": "scan_001.csv",
+      "csv_sha256": "5ba4113b6bb1b83933592e9eb939c09125f8e565d03ecfa5b7976fd4e0bc2594",
+      "calibration_id": "synthetic-model-v1",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "timebase_id": "v03-nominal-simulation",
+      "timebase_description": "Relative seconds since simulation initialization; not wall clock.",
+      "coordinate_system_id": "v03-fictional-local-map",
+      "axis_local_xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "stationary_confirmed": true,
+      "origin_is_user_declared": true,
+      "sample_count": 401,
+      "dwell_s": 0.05,
+      "adapter": "exported_csv_v1"
+    },
+    "estimate": {
+      "accepted": true,
+      "flags": [],
+      "axial_magnitude_ut": 63.503380126951974,
+      "field_std_ut": 0.12221242597680927,
+      "center_mhz": 2869.990906999685,
+      "half_splitting_mhz": 1.7859892304522043,
+      "linewidth_mhz": 0.3398519119533518,
+      "contrast_low": 0.062113152014420865,
+      "contrast_high": 0.060838137519257415,
+      "reduced_chi_square": 0.9727958796864016,
+      "temperature_proxy_k": 293.27254717405395,
+      "fit_parameters": [
+        2869.990906999685,
+        1.7859892304522043,
+        0.3398519119533518,
+        0.062113152014420865,
+        0.060838137519257415,
+        1.0021304498904162,
+        0.009098007330512919
+      ],
+      "timestamp_s": 52.0
+    },
+    "uncertainty_components_ut": {
+      "fit_std_ut": 0.11112646004414088,
+      "strain_std_ut": 0.030074936833947154,
+      "half_splitting_calibration_std_ut": 0.035809008861306627,
+      "systematic_floor_std_ut": 0.02
+    }
+  },
+  {
+    "sequence": 2,
+    "source": {
+      "origin": "synthetic",
+      "source_id": "v03-simulated-scan-2",
+      "description": "Poisson photon-count simulation; not measured instrument data.",
+      "csv": "scan_002.csv",
+      "csv_sha256": "4ff1fa6e5a1e0c5c4942575a38ec8ccd49f6592b90b80b43d6f168dec34f4a1d",
+      "calibration_id": "synthetic-model-v1",
+      "calibration": {
+        "calibration_id": "synthetic-model-v1",
+        "strain_mhz": 0.15,
+        "strain_std_mhz": 0.01,
+        "half_splitting_std_mhz": 0.001,
+        "systematic_std_ut": 0.02
+      },
+      "timebase_id": "v03-nominal-simulation",
+      "timebase_description": "Relative seconds since simulation initialization; not wall clock.",
+      "coordinate_system_id": "v03-fictional-local-map",
+      "axis_local_xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "stationarity_source": "simulation truth asserts fixed position during acquisition",
+      "stationary_confirmed": true,
+      "origin_is_user_declared": true,
+      "sample_count": 401,
+      "dwell_s": 0.05,
+      "adapter": "exported_csv_v1"
+    },
+    "estimate": {
+      "accepted": true,
+      "flags": [],
+      "axial_magnitude_ut": 63.65996767354793,
+      "field_std_ut": 0.1278126411232614,
+      "center_mhz": 2869.9894061901086,
+      "half_splitting_mhz": 1.7903621218012378,
+      "linewidth_mhz": 0.3505715690185634,
+      "contrast_low": 0.05982090750952718,
+      "contrast_high": 0.06137284516226668,
+      "reduced_chi_square": 1.048725193178366,
+      "temperature_proxy_k": 293.2927737182124,
+      "fit_parameters": [
+        2869.9894061901086,
+        1.7903621218012378,
+        0.3505715690185634,
+        0.05982090750952718,
+        0.06137284516226668,
+        1.0023764445570598,
+        0.011041402373381824
+      ],
+      "timestamp_s": 83.0
+    },
+    "uncertainty_components_ut": {
+      "fit_std_ut": 0.11727648082383893,
+      "strain_std_ut": 0.030000960035890856,
+      "half_splitting_calibration_std_ut": 0.035808388310621136,
+      "systematic_floor_std_ut": 0.02
+    }
+  }
+]

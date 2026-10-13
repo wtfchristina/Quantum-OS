@@ -1,0 +1,16 @@
+{
+  "project": "RelativisticQ-PNT",
+  "author": "Christina Holt",
+  "version": "0.4.0",
+  "date": "2026-10-06",
+  "milestone": "Exported-data import and replay",
+  "based_on": "relativisticq-quantum-sensing-v0.3.0.zip",
+  "source_archive_sha256": "165971553d0ada39cdcca9fa2d6aee9460b2755d63efc65f3bb9554f40d8a004",
+  "tests_passed": 67,
+  "new_import_tests": 35,
+  "included_fixture_origin": "synthetic",
+  "measured_hardware_validated": false,
+  "independent_survey_validated": false,
+  "vendored_gravity_hashes_verified": true,
+  "installed_wheel_replay_matches_source": true
+}

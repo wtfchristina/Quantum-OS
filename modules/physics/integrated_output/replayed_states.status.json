@@ -1,0 +1,842 @@
+[
+  {
+    "packet_index": 42,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 43,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 1.7320859135624787
+  },
+  {
+    "packet_index": 44,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 589.5580799022937
+  },
+  {
+    "packet_index": 107,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 108,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.3779027417710594
+  },
+  {
+    "packet_index": 109,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -248.56261034476483
+  },
+  {
+    "packet_index": 172,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 173,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.6697445222239224
+  },
+  {
+    "packet_index": 174,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 198.55342913131608
+  },
+  {
+    "packet_index": 237,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 238,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.4549200518051055
+  },
+  {
+    "packet_index": 239,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -49.67058102450392
+  },
+  {
+    "packet_index": 302,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 303,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.1103373733683854
+  },
+  {
+    "packet_index": 304,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 54.09670273939264
+  },
+  {
+    "packet_index": 367,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 368,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -3.133715581784088
+  },
+  {
+    "packet_index": 369,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 94.12039426265255
+  },
+  {
+    "packet_index": 432,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 433,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.3968893548500958
+  },
+  {
+    "packet_index": 434,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 105.84494008936599
+  },
+  {
+    "packet_index": 497,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 498,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.4847839455159075
+  },
+  {
+    "packet_index": 499,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 183.61657377100346
+  },
+  {
+    "packet_index": 562,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 563,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.7522449561987585
+  },
+  {
+    "packet_index": 564,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -21.038337938764016
+  },
+  {
+    "packet_index": 627,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 628,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.84410010408304
+  },
+  {
+    "packet_index": 629,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -82.01971174568462
+  },
+  {
+    "packet_index": 692,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 693,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 1.4681952331144927
+  },
+  {
+    "packet_index": 694,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -295.7954345563412
+  },
+  {
+    "packet_index": 757,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 758,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.7209839731202194
+  },
+  {
+    "packet_index": 759,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -335.82324900550884
+  },
+  {
+    "packet_index": 822,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 823,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 1.1949503856900776
+  },
+  {
+    "packet_index": 824,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -241.25691141252173
+  },
+  {
+    "packet_index": 887,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 888,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 1.4447771214310166
+  },
+  {
+    "packet_index": 889,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 152.99326242118696
+  },
+  {
+    "packet_index": 952,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 953,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.40149303743953624
+  },
+  {
+    "packet_index": 954,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 792.3403316874901
+  },
+  {
+    "packet_index": 1017,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1018,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.9796735351181525
+  },
+  {
+    "packet_index": 1019,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 646.3223210080178
+  },
+  {
+    "packet_index": 1082,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1083,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.19051265899293668
+  },
+  {
+    "packet_index": 1084,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -332.2934873710328
+  },
+  {
+    "packet_index": 1147,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1148,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -6.221562331236385
+  },
+  {
+    "packet_index": 1149,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -22.686993396782782
+  },
+  {
+    "packet_index": 1212,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1213,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.3454477122930406
+  },
+  {
+    "packet_index": 1214,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 583.7972197331401
+  },
+  {
+    "packet_index": 1277,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1278,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 3.8046303002981023
+  },
+  {
+    "packet_index": 1279,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 323.6741754774557
+  },
+  {
+    "packet_index": 1342,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1343,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 2.0465871109697105
+  },
+  {
+    "packet_index": 1344,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 271.7404938664404
+  },
+  {
+    "packet_index": 1407,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1408,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 4.641399327363278
+  },
+  {
+    "packet_index": 1409,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -385.17011931976594
+  },
+  {
+    "packet_index": 1472,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1473,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 4.0630026736508285
+  },
+  {
+    "packet_index": 1474,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -1054.5708609883732
+  },
+  {
+    "packet_index": 1537,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1538,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 5.599516348373186
+  },
+  {
+    "packet_index": 1539,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -396.2394773233973
+  },
+  {
+    "packet_index": 1602,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1603,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.0006191739335293
+  },
+  {
+    "packet_index": 1604,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -10.821243097481783
+  },
+  {
+    "packet_index": 1667,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1668,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.498332621732672
+  },
+  {
+    "packet_index": 1669,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 1158.913120758807
+  },
+  {
+    "packet_index": 1732,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1733,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.5766311135328834
+  },
+  {
+    "packet_index": 1734,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 1076.408805244966
+  },
+  {
+    "packet_index": 1797,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1798,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 0.45350098949342055
+  },
+  {
+    "packet_index": 1799,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 53.697018351303996
+  },
+  {
+    "packet_index": 1862,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1863,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.5615438400533463
+  },
+  {
+    "packet_index": 1864,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 76.20491918172047
+  },
+  {
+    "packet_index": 1927,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1928,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 6.34379887811717
+  },
+  {
+    "packet_index": 1929,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 86.64160904071468
+  },
+  {
+    "packet_index": 1992,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 1993,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.5458400825348662
+  },
+  {
+    "packet_index": 1994,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 221.57442278826784
+  },
+  {
+    "packet_index": 2057,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2058,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -2.022020180378462
+  },
+  {
+    "packet_index": 2059,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 90.61648955299461
+  },
+  {
+    "packet_index": 2122,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2123,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.3388709681933548
+  },
+  {
+    "packet_index": 2124,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 415.8330215441674
+  },
+  {
+    "packet_index": 2187,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2188,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -0.39643501665260317
+  },
+  {
+    "packet_index": 2189,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 339.2791241515515
+  },
+  {
+    "packet_index": 2252,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2253,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -2.6060085532681363
+  },
+  {
+    "packet_index": 2254,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -43.96185498111299
+  },
+  {
+    "packet_index": 2317,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2318,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -1.5072518342463521
+  },
+  {
+    "packet_index": 2319,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -183.37717561490717
+  },
+  {
+    "packet_index": 2382,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2383,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -3.630724922119594
+  },
+  {
+    "packet_index": 2384,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 388.99869573010074
+  },
+  {
+    "packet_index": 2447,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2448,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -2.192321623709148
+  },
+  {
+    "packet_index": 2449,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 766.2648574452396
+  },
+  {
+    "packet_index": 2512,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2513,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": 3.388998034105171
+  },
+  {
+    "packet_index": 2514,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": 1.8899727733660256
+  },
+  {
+    "packet_index": 2577,
+    "sensor": "stationary_velocity",
+    "used": true,
+    "flags": [],
+    "innovation": null
+  },
+  {
+    "packet_index": 2578,
+    "sensor": "gravity",
+    "used": true,
+    "flags": [],
+    "innovation": -3.823385342633898
+  },
+  {
+    "packet_index": 2579,
+    "sensor": "quantum_magnetic",
+    "used": true,
+    "flags": [],
+    "innovation": -173.52915012789163
+  }
+]

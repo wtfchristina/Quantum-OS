@@ -1,0 +1,113 @@
+{
+  "schema": "relativisticq-pnt.import.v1",
+  "project": "RelativisticQ-PNT",
+  "author": "Christina Holt",
+  "manifest_sha256": "ecd68aa00ae5e9cf9edb08f8eecc6e8ab031134f1b7048fbe4c28adf4e46691a",
+  "timebase_id": "v03-nominal-simulation",
+  "coordinate_system_id": "v03-fictional-local-map",
+  "map": {
+    "origin": "synthetic",
+    "source_id": "v03-nominal-map",
+    "description": "Fictional fixed-axis grid exported from the retained simulation.",
+    "independence_statement": "NOT independent: sampled from the same synthetic environment used for scans.",
+    "csv": "reference_map.csv",
+    "csv_sha256": "ffa8ff7bd8bebdecb92290a398136a39dcf8e4be4c2c88057e9dc74a7a257e21",
+    "axis_local_xyz": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "observable": "fixed_axis_magnitude",
+    "error_std_ut": 0.65,
+    "frame": "local_xy",
+    "coordinate_system_id": "v03-fictional-local-map"
+  },
+  "scans_total": 3,
+  "scans_accepted": 3,
+  "scans_rejected": 0,
+  "provenance_is_user_declared": true,
+  "hardware_accuracy_validated": false,
+  "map_independence_verified": false,
+  "uncertainty_assumption": "Independent first-order calibration terms; map error applied separately in fusion.",
+  "motion_stream_sha256": "07830891fb98b1aa107ac8ffd34cb8b69837e0b7ba3690e5ce9413e71dc11bf0",
+  "initialization_sha256": "313b556064c72ef34e9723ea49cc8ef4b9eacade766048e6839215599c44f180",
+  "toy_gravity_map_sha256": "2fd8743b40e19e921df4fc12fb2865c2063f04e5f4889f1716682bb2621033b3",
+  "state_snapshots": 175,
+  "magnetic_updates_used": 3,
+  "final_state": {
+    "sensor": "navigation_state",
+    "timestamp_s": 83.0,
+    "sequence": 174,
+    "values": {
+      "x_m": 139.65527346349734,
+      "y_m": 224.20190885959997,
+      "vx_mps": -0.01817931176729262,
+      "vy_mps": -0.013784283926023957,
+      "bax_mps2": -0.014988640429281079,
+      "bay_mps2": 0.0022917936616510706
+    },
+    "frame": "local_xy",
+    "metadata": {
+      "state_order": [
+        "x",
+        "y",
+        "vx",
+        "vy",
+        "bax",
+        "bay"
+      ],
+      "covariance": [
+        [
+          10.31910613893079,
+          3.2602040511436376,
+          0.008489828865622148,
+          -0.005202465631651098,
+          0.0007953172464619197,
+          -0.000517663837742519
+        ],
+        [
+          3.260204051143638,
+          2.7457906503042993,
+          0.00020797107452881456,
+          0.003436440390636305,
+          4.7461537925628905e-05,
+          0.00024086485333181347
+        ],
+        [
+          0.008489828865622141,
+          0.0002079710745288145,
+          0.0008744052892313568,
+          7.956252841398578e-06,
+          -2.064854159556939e-05,
+          6.765746313775142e-07
+        ],
+        [
+          -0.0052024656316510985,
+          0.0034364403906363013,
+          7.956252841398578e-06,
+          0.0008585565521232246,
+          5.990272628014383e-07,
+          -2.178501861907574e-05
+        ],
+        [
+          0.0007953172464619176,
+          4.746153792562898e-05,
+          -2.064854159556939e-05,
+          5.990272628014362e-07,
+          1.8807865134954606e-05,
+          6.953709670976927e-08
+        ],
+        [
+          -0.0005176638377425161,
+          0.00024086485333181147,
+          6.765746313775103e-07,
+          -2.1785018619075732e-05,
+          6.953709670976907e-08,
+          1.8711043654983302e-05
+        ]
+      ],
+      "fusion_source": "gravity_nav_0.7_FusionEKF"
+    }
+  },
+  "navigation_accuracy_measured": false
+}
