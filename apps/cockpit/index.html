@@ -48,6 +48,9 @@
     <label class="control-label">Camera Pitch Elevation</label>
     <input type="range" id="cam-slider" min="5" max="40" step="1" value="18">
     <button class="btn" onclick="toggleAttack()">INJECT EVE INTERCEPT</button>
+    <hr>
+    <label class="control-label">Relativistic Phase Portrait (r vs p_r)</label>
+    <canvas id="phase-canvas" width="300" height="80" style="background:#020610; border:1px solid #14223d; border-radius:4px; display:block; width:100%;"></canvas>
   </div>
   <div id="canvas-container"></div>
 
@@ -378,7 +381,145 @@
       } catch (err) {}
     }
 
-    setInterval(pollTelemetry, 100);
+        // Phase Space Oscilloscope Renderer
+    const pCanvas = document.getElementById("phase-canvas");
+    const pCtx = pCanvas ? pCanvas.getContext("2d") : null;
+    const phaseHistory = [];
+
+    function renderPhasePortrait(r, pr, isAtt) {
+      if (!pCtx) return;
+      phaseHistory.push({ r, pr });
+      if (phaseHistory.length > 120) phaseHistory.shift();
+
+      pCtx.fillStyle = "#020610";
+      pCtx.fillRect(0, 0, pCanvas.width, pCanvas.height);
+
+      // Grid centerlines
+      pCtx.strokeStyle = "#101d36";
+      pCtx.lineWidth = 1;
+      pCtx.beginPath();
+      pCtx.moveTo(0, pCanvas.height / 2); pCtx.lineTo(pCanvas.width, pCanvas.height / 2);
+      pCtx.stroke();
+
+      pCtx.strokeStyle = isAtt ? "#ff0055" : "#00ffcc";
+      pCtx.lineWidth = 1.5;
+      pCtx.beginPath();
+      for (let i = 0; i < phaseHistory.length; i++) {
+        // Map r (3 to 14) to X (0 to width), pr (-0.5 to 0.5) to Y (height to 0)
+        const pt = phaseHistory[i];
+        const cx = ((pt.r - 3.0) / 11.0) * pCanvas.width;
+        const cy = pCanvas.height / 2 - (pt.pr * 120.0);
+        if (i === 0) pCtx.moveTo(cx, cy);
+        else pCtx.lineTo(cx, cy);
+      }
+      pCtx.stroke();
+
+      // Current head marker
+      if (phaseHistory.length > 0) {
+        const head = phaseHistory[phaseHistory.length - 1];
+        const hx = ((head.r - 3.0) / 11.0) * pCanvas.width;
+        const hy = pCanvas.height / 2 - (head.pr * 120.0);
+        pCtx.fillStyle = isAtt ? "#ff3366" : "#ffffff";
+        pCtx.beginPath();
+        pCtx.arc(hx, hy, 3, 0, Math.PI * 2);
+        pCtx.fill();
+      }
+    }
+
+    async function handleIncomingEnvelope(envelope) {
+      let data = null;
+      try {
+        const keyBuf = hexToBuf(envelope.shared_key_hint);
+        const ivBuf = hexToBuf(envelope.iv);
+        const ctBuf = hexToBuf(envelope.ciphertext);
+        const cryptoKey = await window.crypto.subtle.importKey("raw", keyBuf, { name: "AES-GCM" }, false, ["decrypt"]);
+        const ptBuf = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: ivBuf }, cryptoKey, ctBuf);
+        data = JSON.parse(new TextDecoder().decode(ptBuf));
+      } catch (e) {
+        data = { auth_failed: true, qber: envelope.qber_unencrypted || 0.245 };
+      }
+
+      const badge = document.getElementById("status-badge");
+      const qberElem = document.getElementById("qber");
+      const isBreach = data.auth_failed || (data.security && data.security.qber > 0.11);
+
+      if (isBreach) {
+        badge.className = "badge badge-alert";
+        badge.innerText = "TAG_MISMATCH // TAMPER DETECTED";
+        qberElem.style.color = "#ff3366";
+        qberElem.innerText = ((data.qber || 0.245) * 100).toFixed(2) + "%";
+        uniforms.uAttack.value = 1.0;
+        orbMat.color.setHex(0xff0055);
+        renderPhasePortrait(8.0, 0.0, true);
+      } else {
+        badge.className = "badge badge-ok";
+        badge.innerText = "WS_GCM_LIVE";
+        qberElem.style.color = "#ffffff";
+        qberElem.innerText = (data.security.qber * 100).toFixed(2) + "%";
+        uniforms.uAttack.value = 0.0;
+        orbMat.color.setHex(0x00ffcc);
+
+        document.getElementById("tick").innerText = data.tick;
+        document.getElementById("kme").innerText = data.security.kme_token || "--";
+        document.getElementById("r00").innerText = Number(data.physics.metric_r00).toFixed(6);
+        document.getElementById("orbit-r").innerText = Number(data.physics.orbit_radius || 8.0).toFixed(4);
+        document.getElementById("omega-fd").innerText = Number(data.physics.frame_drag_omega || 0.0).toFixed(6);
+        document.getElementById("pinn-loss").innerText = Number(data.physics.hamiltonian_loss).toFixed(6);
+
+        uniforms.uG00.value = data.physics.metric_r00;
+        uniforms.uOmega.value = data.physics.frame_drag_omega || 0.015;
+
+        if (data.physics.orbit_x !== undefined) {
+          const px = data.physics.orbit_x;
+          const pz = data.physics.orbit_z;
+          const dist = Math.sqrt(px * px + pz * pz);
+          const t = uniforms.uTime.value;
+          const amp = uniforms.uAmplitude.value;
+          const g00 = uniforms.uG00.value;
+
+          const well = (1.0 - g00) * 3.8 / (dist * 0.22 + 1.0);
+          const wave = Math.sin(dist * 0.45 - t * 2.2) * amp * Math.exp(-dist * 0.08) * (dist < 4.5 ? (dist - 1.5) / 3.0 : 1.0);
+          const py = wave - well;
+
+          orbMesh.position.set(px, py + 0.25, pz);
+          addTrailPoint(px, -well + 0.15, pz);
+        }
+
+        renderPhasePortrait(data.physics.orbit_radius, data.physics.pr || 0.0, false);
+      }
+    }
+
+    // Connect to WebSocket with HTTP polling fallback
+    function initTelemetryStream() {
+      const wsUrl = "ws://" + (window.location.hostname || "localhost") + ":8766";
+      let ws = null;
+      try {
+        ws = new WebSocket(wsUrl);
+        ws.onopen = () => console.log("[+] Connected to Quantum-OS WebSocket Bridge");
+        ws.onmessage = async (evt) => {
+          const env = JSON.parse(evt.data);
+          await handleIncomingEnvelope(env);
+        };
+        ws.onerror = () => ws.close();
+        ws.onclose = () => {
+          console.warn("[-] WebSocket closed. Falling back to HTTP poll.");
+          setInterval(pollTelemetry, 100);
+        };
+      } catch (e) {
+        setInterval(pollTelemetry, 100);
+      }
+    }
+
+    async function pollTelemetry() {
+      try {
+        const res = await fetch("telemetry.json?t=" + Date.now());
+        if (!res.ok) return;
+        const envelope = await res.json();
+        await handleIncomingEnvelope(envelope);
+      } catch (err) {}
+    }
+
+    initTelemetryStream();
   </script>
 </body>
 </html>
