@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pytest
+httpx
+reportlab
+python-multipart
+python-multipart
+cryptography
+apscheduler>=3.10.4
