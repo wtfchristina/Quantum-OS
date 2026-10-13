@@ -39,6 +39,8 @@
     <div class="row"><span>Active KME ID:</span><span id="kme" class="val">--</span></div>
     <div class="row"><span>Session Key (SHA256):</span><span id="key" class="val">--</span></div>
     <div class="row"><span>Curvature Metric (g_00):</span><span id="r00" class="val">1.000000</span></div>
+        <div class="row"><span>PINN Hamiltonian Loss:</span><span id="pinn-loss" class="val">0.000000</span></div>
+        <div class="row"><span>Christoffel Gamma^r:</span><span id="gamma-r" class="val">0.000000</span></div>
     <hr>
     <label class="control-label">Curvature Mesh Amplitude</label>
     <input type="range" id="amp-slider" min="0.1" max="5.0" step="0.1" value="1.5">
@@ -176,6 +178,10 @@
         document.getElementById('kme').innerText = data.security.kme_token || '--';
         document.getElementById('key').innerText = envelope.shared_key_hint.substr(0, 16) + '...';
         document.getElementById('r00').innerText = Number(data.physics.metric_r00).toFixed(6);
+            if (data.physics.hamiltonian_loss !== undefined) {
+              document.getElementById('pinn-loss').innerText = Number(data.physics.hamiltonian_loss).toFixed(6);
+              document.getElementById('gamma-r').innerText = Number(data.physics.christoffel_gamma_r).toFixed(6);
+            }
         targetCurvature = data.physics.metric_r00;
       } catch (e) {}
     }
