@@ -6,3 +6,13 @@ __pycache__/
 .DS_Store
 bloch.png
 tomography.png
+
+# Runtime simulation & attack state artifacts
+apps/cockpit/telemetry.json
+apps/cockpit/telemetry.json.tmp
+apps/cockpit/attack.flag
+runs/
+core/runs/tamper_proof_*.json
+build/
+*.pyc
+__pycache__/
