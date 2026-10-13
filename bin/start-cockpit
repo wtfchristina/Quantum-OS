@@ -41,7 +41,7 @@ BRIDGE_PID=$!
 echo "[+] Telemetry Bridge active (PID: $BRIDGE_PID)"
 
 # 5. Launch Local Web Server for Cockpit
-python3 -m http.server 3000 --directory apps/cockpit > /dev/null 2>&1 &
+python3 apps/cockpit/serve.py > /dev/null 2>&1 &
 SERVER_PID=$!
 echo "[+] WebGL Cockpit serving at http://localhost:3000 (PID: $SERVER_PID)"
 
