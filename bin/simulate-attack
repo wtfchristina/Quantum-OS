@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+FLAG="apps/cockpit/attack.flag"
+
+if [ -f "$FLAG" ]; then
+    rm -f "$FLAG"
+    echo "[!] Eavesdropper detached. Channel returning to clean state."
+else
+    touch "$FLAG"
+    echo "[!] Eve intercept injected! QBER spiking above 11% threshold..."
+fi

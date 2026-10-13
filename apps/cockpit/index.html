@@ -4,66 +4,127 @@
   <meta charset="UTF-8">
   <title>Quantum-OS // Integrated Cockpit</title>
   <style>
-    body { margin: 0; overflow: hidden; background: #080c14; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; }
+    body { margin: 0; overflow: hidden; background: #060911; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; }
     #hud {
       position: absolute; top: 20px; left: 20px; z-index: 10;
-      background: rgba(13, 20, 36, 0.85); border: 1px solid #1f3056;
+      background: rgba(10, 15, 29, 0.90); border: 1px solid #1a2744;
       border-radius: 8px; padding: 18px 24px; color: #a4b3d6; font-size: 13px;
-      backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      width: 320px;
     }
-    #hud h1 { margin: 0 0 12px 0; font-size: 14px; letter-spacing: 1.5px; color: #00ffcc; text-transform: uppercase; }
-    .row { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 6px; }
+    #hud h1 { margin: 0 0 12px 0; font-size: 13px; letter-spacing: 1.5px; color: #00ffcc; text-transform: uppercase; }
+    .row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
     .val { font-weight: 600; color: #ffffff; }
-    .badge { background: #00ffcc22; color: #00ffcc; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+    .badge { padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    .badge-ok { background: #00ffcc22; color: #00ffcc; }
+    .badge-alert { background: #ff005533; color: #ff3366; border: 1px solid #ff0055; }
+    hr { border: none; border-top: 1px solid #1a2744; margin: 12px 0; }
+    .control-label { font-size: 11px; color: #7388b6; margin-bottom: 4px; display: block; }
+    input[type=range] { width: 100%; accent-color: #00ffcc; margin-bottom: 8px; }
+    .btn {
+      width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ff3366;
+      background: #ff336622; color: #ff3366; font-family: monospace; font-weight: bold;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn:hover { background: #ff336644; }
+    .btn.active { background: #ff3366; color: #fff; }
     #canvas-container { width: 100vw; height: 100vh; }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
   <div id="hud">
-    <h1>Quantum-OS Dynamic Bridge</h1>
-    <div class="row"><span>Status:</span><span class="badge">LIVE ORCHESTRATION</span></div>
+    <h1>Quantum-OS Telemetry HUD</h1>
+    <div class="row"><span>Status:</span><span id="status-badge" class="badge badge-ok">LIVE STREAMING</span></div>
     <div class="row"><span>Frame Tick:</span><span id="tick" class="val">0</span></div>
     <div class="row"><span>QBER (BB84):</span><span id="qber" class="val">0.00%</span></div>
     <div class="row"><span>Active KME ID:</span><span id="kme" class="val">--</span></div>
-    <div class="row"><span>Session Key (Hybrid):</span><span id="key" class="val">--</span></div>
-    <div class="row"><span>Curvature Metric (R_00):</span><span id="r00" class="val">1.0000</span></div>
+    <div class="row"><span>Session Key:</span><span id="key" class="val">--</span></div>
+    <div class="row"><span>Metric g_00:</span><span id="r00" class="val">1.000000</span></div>
+    <hr>
+    <label class="control-label">Curvature Mesh Amplitude</label>
+    <input type="range" id="amp-slider" min="0.1" max="5.0" step="0.1" value="1.5">
+    <label class="control-label">Camera Altitude</label>
+    <input type="range" id="alt-slider" min="5" max="50" step="1" value="15">
+    <button id="attack-btn" class="btn" onclick="toggleAttack()">INJECT EVE INTERCEPT</button>
   </div>
   <div id="canvas-container"></div>
 
   <script>
     const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x060911, 0.02);
+
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 15, 25);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    const size = 30, divisions = 30;
+    const size = 36, divisions = 40;
     const geometry = new THREE.PlaneGeometry(size, size, divisions, divisions);
     geometry.rotateX(-Math.PI / 2);
 
-    const material = new THREE.MeshBasicMaterial({ color: 0x00a3ff, wireframe: true });
+    const count = geometry.attributes.position.count;
+    const colors = new Float32Array(count * 3);
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.MeshBasicMaterial({
+      vertexColors: true,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.9
+    });
     const plane = new THREE.Mesh(geometry, material);
     scene.add(plane);
 
     let targetCurvature = 1.0;
+    let amplitude = 1.5;
+    let attackMode = false;
     const pos = geometry.attributes.position;
+    const colAttr = geometry.attributes.color;
+
+    document.getElementById('amp-slider').addEventListener('input', (e) => {
+      amplitude = parseFloat(e.target.value);
+    });
+    document.getElementById('alt-slider').addEventListener('input', (e) => {
+      camera.position.y = parseFloat(e.target.value);
+      camera.lookAt(0, 0, 0);
+    });
+
+    function toggleAttack() {
+      attackMode = !attackMode;
+      const btn = document.getElementById('attack-btn');
+      btn.classList.toggle('active', attackMode);
+      btn.innerText = attackMode ? 'STOPPING ATTACK...' : 'INJECT EVE INTERCEPT';
+      fetch('attack_toggle?state=' + (attackMode ? '1' : '0')).catch(() => {});
+    }
 
     function animate() {
       requestAnimationFrame(animate);
       const time = Date.now() * 0.002;
+
       for (let i = 0; i < pos.count; i++) {
         const x = pos.getX(i);
         const z = pos.getZ(i);
         const dist = Math.sqrt(x*x + z*z);
-        const warp = Math.sin(dist * 0.5 - time) * (2.0 - targetCurvature * 1.5) * Math.exp(-dist * 0.1);
+        const warp = Math.sin(dist * 0.4 - time) * amplitude * Math.exp(-dist * 0.08);
         pos.setY(i, warp);
+
+        // Vertex Color Gradient: Cyan (flat) -> Magenta (warped) -> Red (compromised)
+        const depthNorm = Math.min(Math.max((warp + amplitude) / (amplitude * 2), 0.0), 1.0);
+        if (attackMode) {
+          colAttr.setXYZ(i, 1.0, 0.1 * depthNorm, 0.3);
+        } else {
+          colAttr.setXYZ(i, depthNorm * 0.8, 1.0 - (depthNorm * 0.6), 1.0);
+        }
       }
+
       pos.needsUpdate = true;
-      plane.rotation.y += 0.001;
+      colAttr.needsUpdate = true;
+      plane.rotation.y += 0.0008;
       renderer.render(scene, camera);
     }
     animate();
@@ -76,12 +137,39 @@
 
     function updateTelemetry(data) {
       document.getElementById('tick').innerText = data.tick;
-      document.getElementById('qber').innerText = (data.security.qber * 100).toFixed(2) + '%';
-      document.getElementById('kme').innerText = data.security.kme_id || data.security.kme_token;
-      document.getElementById('key').innerText = data.security.session_key;
-      document.getElementById('r00').innerText = data.physics.metric_r00;
+      const qber = data.security.qber * 100;
+      const qberElem = document.getElementById('qber');
+      const badge = document.getElementById('status-badge');
+
+      qberElem.innerText = qber.toFixed(2) + '%';
+
+      if (qber > 11.0 || data.security.status === 'ABORTED_EAVESDROP') {
+        qberElem.style.color = '#ff3366';
+        badge.className = 'badge badge-alert';
+        badge.innerText = 'EVE INTERCEPT DETECTED';
+        attackMode = true;
+        document.getElementById('attack-btn').classList.add('active');
+      } else {
+        qberElem.style.color = '#ffffff';
+        badge.className = 'badge badge-ok';
+        badge.innerText = 'LIVE STREAMING';
+      }
+
+      document.getElementById('kme').innerText = data.security.kme_id || data.security.kme_token || '--';
+      document.getElementById('key').innerText = data.security.session_key || '--';
+      document.getElementById('r00').innerText = Number(data.physics.metric_r00).toFixed(6);
       targetCurvature = data.physics.metric_r00;
     }
+
+    setInterval(async () => {
+      try {
+        const res = await fetch('telemetry.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          updateTelemetry(data);
+        }
+      } catch (err) {}
+    }, 200);
   </script>
 </body>
 </html>
