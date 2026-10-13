@@ -31,5 +31,5 @@ class CockpitHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), CockpitHandler) as httpd:
+    with socketserver.TCPServer(("0.0.0.0", PORT), CockpitHandler) as httpd:
         httpd.serve_forever()
