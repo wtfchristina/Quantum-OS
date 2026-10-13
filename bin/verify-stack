@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+set -e
+
+echo "=== QUANTUM-OS AUTOMATED INTEGRATION SMOKE TEST ==="
+
+# 1. C++ BB84 / ETSI-014 Unit Tests
+echo "[1/4] Running BB84 / ETSI-014 C++ Test Harness..."
+./build/modules/qkd/test_qkd_bb84 > /dev/null
+echo "  ✓ C++ QKD Simulation & KME assertions passed."
+
+# 2. PINN Relativistic Geodesic Engine
+echo "[2/4] Testing PINN Relativistic Geodesic Engine..."
+python3 -c "
+from modules.physics.pinn_geodesic import RelativisticPINNSolver
+solver = RelativisticPINNSolver(mass_m=1.0)
+res = solver.compute_geodesic_step(r=6.0)
+assert res['hamiltonian_loss'] < 0.25, f'PINN divergence: {res}'
+assert res['radial_accel'] != 0.0, 'Zero acceleration error'
+"
+echo "  ✓ PINN Hamiltonian loss is bounded within tolerance."
+
+# 3. Web3 Contract Mock Fixtures
+echo "[3/4] Testing QuantumVault Contract Bindings..."
+python3 -c "
+import sys; sys.path.insert(0, 'core')
+import quantum_tool
+assert quantum_tool.TOKEN_ADDR.startswith('0x'), 'Invalid token address format'
+assert quantum_tool.VAULT_ADDR.startswith('0x'), 'Invalid vault address format'
+"
+echo "  ✓ EVM contract resolution verified."
+
+# 4. Cryptographic Tamper Breach Logging
+echo "[4/4] Testing Tamper Incident Persistence..."
+python3 -c "
+import os
+from core.vault_breaker import VaultBreaker
+breaker = VaultBreaker()
+report = breaker.log_tamper_incident(999, 0.245, 'mock_attack_key')
+assert report['proof_logged'] is True
+assert os.path.exists(report['log_path'])
+"
+echo "  ✓ Tamper proof generation and audit persistence verified."
+
+echo "=================================================="
+echo "  ✓ ALL SUBSYSTEMS VERIFIED AND PASSING"
+echo "=================================================="

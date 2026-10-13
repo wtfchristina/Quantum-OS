@@ -25,3 +25,6 @@ stop:
 
 clean: stop
 	rm -rf build apps/cockpit/telemetry.json apps/cockpit/attack.flag
+
+verify: build
+	@./bin/verify-stack
