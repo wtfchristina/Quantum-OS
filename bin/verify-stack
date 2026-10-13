@@ -8,16 +8,17 @@ echo "[1/4] Running BB84 / ETSI-014 C++ Test Harness..."
 ./build/modules/qkd/test_qkd_bb84 > /dev/null
 echo "  ✓ C++ QKD Simulation & KME assertions passed."
 
-# 2. PINN Relativistic Geodesic Engine
+# 2. PINN Relativistic Geodesic Engine (RK4)
 echo "[2/4] Testing PINN Relativistic Geodesic Engine..."
 python3 -c "
 from modules.physics.pinn_geodesic import RelativisticPINNSolver
-solver = RelativisticPINNSolver(mass_m=1.0)
-res = solver.compute_geodesic_step(r=6.0)
+solver = RelativisticPINNSolver(mass_m=1.0, r0=6.0)
+res = solver.step_rk4(dtau=0.08)
 assert res['hamiltonian_loss'] < 0.25, f'PINN divergence: {res}'
 assert res['radial_accel'] != 0.0, 'Zero acceleration error'
+assert 'pos_x' in res and 'pos_z' in res, 'Missing orbital coordinates'
 "
-echo "  ✓ PINN Hamiltonian loss is bounded within tolerance."
+echo "  ✓ PINN RK4 Hamiltonian loss is bounded within tolerance."
 
 # 3. Web3 Contract Mock Fixtures
 echo "[3/4] Testing QuantumVault Contract Bindings..."
