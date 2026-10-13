@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+set -e
+
+WORKSPACE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$WORKSPACE_DIR"
+
+echo "=== QUANTUM-OS: STARTING LOCAL MACOS RUNTIME ==="
+
+# 1. Clear any zombie listeners on ports 3000 and 8765
+echo "[*] Clearing local ports 3000 and 8765..."
+lsof -ti :3000 | xargs kill -9 2>/dev/null || true
+lsof -ti :8765 | xargs kill -9 2>/dev/null || true
+
+# 2. Build binaries if missing
+if [ ! -f "build/daemon/quantum_daemon" ]; then
+    echo "[*] Building C++ quantum daemon..."
+    OPENSSL_PATH=$(brew --prefix openssl@3 2>/dev/null || echo "/opt/homebrew/opt/openssl@3")
+    cmake -B build -S . -DOPENSSL_ROOT_DIR="${OPENSSL_PATH}"
+    cmake --build build --target quantum_daemon
+fi
+
+# Trap signals to cleanly terminate all spawned background jobs
+cleanup() {
+    echo "\n[*] Terminating all Quantum-OS processes..."
+    kill "$DAEMON_PID" "$BRIDGE_PID" "$SERVER_PID" 2>/dev/null || true
+    rm -f apps/cockpit/attack.flag
+    echo "[+] Clean shutdown complete."
+    exit 0
+}
+trap cleanup INT TERM
+
+# 3. Launch C++ Daemon in background
+./build/daemon/quantum_daemon 8765 > /dev/null 2>&1 &
+DAEMON_PID=$!
+echo "[+] C++ QKD Daemon active (PID: $DAEMON_PID, Port: 8765)"
+sleep 0.5
+
+# 4. Launch Python Orchestrator Bridge in background
+python3 daemon/bridge.py > /dev/null 2>&1 &
+BRIDGE_PID=$!
+echo "[+] Telemetry Bridge active (PID: $BRIDGE_PID)"
+
+# 5. Launch Local Web Server for Cockpit
+python3 -m http.server 3000 --directory apps/cockpit > /dev/null 2>&1 &
+SERVER_PID=$!
+echo "[+] WebGL Cockpit serving at http://localhost:3000 (PID: $SERVER_PID)"
+
+# 6. Auto-open default macOS browser
+open "http://localhost:3000"
+
+echo "=================================================="
+echo " Runtime active. Press [Ctrl + C] in this window to stop."
+echo "=================================================="
+
+# Keep alive
+wait

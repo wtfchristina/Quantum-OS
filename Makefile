@@ -1,23 +1,27 @@
 OPENSSL_PATH := $(shell brew --prefix openssl@3 2>/dev/null || echo "/opt/homebrew/opt/openssl@3")
 
-.PHONY: build test run clean push
+.PHONY: all build test start stop clean push
+
+all: build
 
 build:
 	@mkdir -p build
 	cmake -B build -S . -DOPENSSL_ROOT_DIR="$(OPENSSL_PATH)"
-	cmake --build build --target quantum_daemon
+	cmake --build build --target test_qkd_bb84 quantum_daemon
 
 test: build
-	@echo "Running QKD unit tests..."
-	./build/modules/qkd/test_qkd_bb84 2>/dev/null || true
+	@echo "==> Running BB84 Protocol & KME Tests..."
+	./build/modules/qkd/test_qkd_bb84
 
-run: build
-	@echo "Starting daemon on port 8765..."
-	@./build/daemon/quantum_daemon & DAEMON_PID=$$!; \
-	sleep 0.5; \
-	echo "Attaching Python runtime orchestrator..."; \
-	python3 daemon/bridge.py; \
-	kill $$DAEMON_PID 2>/dev/null || true
+start:
+	@./bin/start-cockpit
 
-clean:
-	rm -rf build test_qkd_bb84 test_hybrid_kdf
+stop:
+	@echo "Terminating any running processes on 3000 / 8765..."
+	@lsof -ti :3000 | xargs kill -9 2>/dev/null || true
+	@lsof -ti :8765 | xargs kill -9 2>/dev/null || true
+	@pkill -f "daemon/bridge.py" 2>/dev/null || true
+	@echo "All stopped."
+
+clean: stop
+	rm -rf build apps/cockpit/telemetry.json apps/cockpit/attack.flag
